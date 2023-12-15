@@ -29,13 +29,24 @@ func _input(event):
 		get_tree().reload_current_scene()
 
 func _ready():
-	RenderingServer.set_default_clear_color(Color("080a12"))
+	#RenderingServer.set_default_clear_color(Color("080a12"))
+	RenderingServer.set_default_clear_color(Color.DARK_SLATE_GRAY)
 	randomize()
+	print("make rooms:")
 	makeRooms()
-	await get_tree().create_timer(.5).timeout
+	print("done")
+	print("waiting")
+	await get_tree().create_timer(1).timeout
+	print("done")
+	print("placing")
 	placePatterns()
+	print("done")
+	print("analysing")
 	analyseLayout()
+	print("done")
+	print("genning hallways")
 	generateHallways()
+	print("done")
 
 func makeRooms():
 	var rng: int
@@ -56,7 +67,7 @@ func makeRooms():
 		$Rooms.add_child(room)
 	
 	# wait for rooms to settle:
-	await get_tree().create_timer(.25).timeout
+	await get_tree().create_timer(0.5).timeout
 	
 	# cull rooms:
 	for _room in $Rooms.get_children():
@@ -133,7 +144,6 @@ func generateHallways():
 		
 	#create paths:
 	var path: = []
-	print(door_tiles)
 	for i in door_tiles.size():
 		path = astar_grid.get_id_path(door_tiles[0],door_tiles[i])
 		tile_map.set_cells_terrain_connect(0,path,0,0,false)

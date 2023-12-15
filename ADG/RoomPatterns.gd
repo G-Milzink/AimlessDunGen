@@ -2,6 +2,7 @@ extends Node2D
 
 @export var room_A_size = Vector2(7,7)
 @export var room_B_size = Vector2(9,9)
+@export var pattern_spacing := Vector2(2,2)
 
 var room_a_north: TileMapPattern
 var room_a_east: TileMapPattern
@@ -13,6 +14,8 @@ var room_b_south: TileMapPattern
 var room_b_west: TileMapPattern
 
 func _ready():
+	room_A_size = room_A_size + pattern_spacing
+	room_B_size = room_B_size + pattern_spacing
 	room_A_Patterns()
 	room_B_Patterns()
 
