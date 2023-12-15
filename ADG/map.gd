@@ -88,3 +88,4 @@ func analyseLayout():
 		tile_data = tile_map.get_cell_tile_data(0,cell)
 		if tile_data.get_custom_data("is_door"):
 			door_tiles.append(cell)
+	
