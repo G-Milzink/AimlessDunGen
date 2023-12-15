@@ -4,6 +4,7 @@ extends Node2D
 @export_range(0,99) var cull_percentage: int
 @export_range(0,10) var horizontal_spread: int
 @export_range(0,10) var vertical_spread: int
+@export var edge_buffer: int
 
 const TILE_SIZE = 32
 const ROOM_A = preload("res://ADG/room_a.tscn")
@@ -12,8 +13,14 @@ const ROOM_B = preload("res://ADG/room_b.tscn")
 var grid_origin := Vector2.ZERO
 var room_a_positions: Array
 var room_b_positions: Array
+
 var used_cells: Array
 var door_tiles: Array
+var wall_tiles: Array
+
+var astar_grid := AStarGrid2D.new()
+var grid_edge_X := 0
+var grid_edge_Y := 0
 
 @onready var tile_map = $TileMap
 
@@ -22,11 +29,13 @@ func _input(event):
 		get_tree().reload_current_scene()
 
 func _ready():
+	RenderingServer.set_default_clear_color(Color("080a12"))
 	randomize()
 	makeRooms()
 	await get_tree().create_timer(.5).timeout
 	placePatterns()
 	analyseLayout()
+	generateHallways()
 
 func makeRooms():
 	var rng: int
@@ -75,17 +84,60 @@ func makeRooms():
 			room_b_positions.append(tile_map_coords)
 
 func placePatterns():
+	var rng: int
+	var pattern: TileMapPattern
 	for pos in room_a_positions:
-		tile_map.set_pattern(0,pos,$RoomPatterns.room_a_pattern)
+		rng = randi() % 100
+		if rng < 25 : pattern = $RoomPatterns.room_a_north
+		elif rng < 50 : pattern = $RoomPatterns.room_a_east
+		elif rng < 75 : pattern = $RoomPatterns.room_a_south
+		else: pattern = $RoomPatterns.room_a_west
+		tile_map.set_pattern(0,pos,pattern)
 	for pos in room_b_positions:
-		tile_map.set_pattern(0,pos,$RoomPatterns.room_b_pattern)
+		rng = randi() % 100
+		if rng < 25 : pattern = $RoomPatterns.room_b_north
+		elif rng < 50 : pattern = $RoomPatterns.room_b_east
+		elif rng < 75 : pattern = $RoomPatterns.room_b_south
+		else: pattern = $RoomPatterns.room_b_west
+		tile_map.set_pattern(0,pos,pattern)
 
 func analyseLayout():
-	#Analyse grid and sort tiles by functionality
+	#Analyse grid:
 	var tile_data: TileData
 	used_cells = tile_map.get_used_cells(0)
 	for cell in used_cells:
+		# Determine grid edges:
+		if cell.x > grid_edge_X:
+			grid_edge_X = cell.x
+		if cell.y > grid_edge_Y:
+			grid_edge_Y = cell.y
+		# Filter out tiles accoring to custom data:
 		tile_data = tile_map.get_cell_tile_data(0,cell)
 		if tile_data.get_custom_data("is_door"):
 			door_tiles.append(cell)
+		if tile_data.get_custom_data("is_wall"):
+			wall_tiles.append(cell)
+
+func generateHallways():
+	# Setup astar grid:
+	astar_grid.region = Rect2i(0, 0, grid_edge_X+edge_buffer, grid_edge_Y+edge_buffer)
+	astar_grid.cell_size = Vector2(TILE_SIZE, TILE_SIZE)
+	astar_grid.set_diagonal_mode(AStarGrid2D.DIAGONAL_MODE_NEVER)
+	astar_grid.set_default_compute_heuristic(1)
+	astar_grid.set_default_estimate_heuristic(1)
+	astar_grid.update()
 	
+	# Set wall tiles to solid:
+	for tile in wall_tiles:
+		astar_grid.set_point_solid(tile)
+		
+	#create paths:
+	var path: = []
+	print(door_tiles)
+	for i in door_tiles.size():
+		path = astar_grid.get_id_path(door_tiles[0],door_tiles[i])
+		tile_map.set_cells_terrain_connect(0,path,0,0,false)
+		
+
+
+
