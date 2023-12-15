@@ -1,0 +1,6 @@
+res://ADG/map.tscn
+res://ADG/ADG_Main_TileSet.tres
+res://ADG/room_a.tscn
+res://ADG/room_b.tscn
+res://ADG/map.gd
+res://ADG/RoomPatterns.gd

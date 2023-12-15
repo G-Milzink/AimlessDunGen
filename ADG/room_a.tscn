@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://jlt2q2radg2n"]
+
+[ext_resource type="Script" path="res://ADG/room.gd" id="1_p6npn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4muk0"]
+
+[node name="Room" type="RigidBody2D" groups=["room_a"]]
+mass = 0.2
+lock_rotation = true
+freeze_mode = 1
+script = ExtResource("1_p6npn")
+room_size = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(10, 10)
+shape = SubResource("RectangleShape2D_4muk0")
