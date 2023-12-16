@@ -2,6 +2,7 @@ extends Node2D
 
 #region Exported variables
 @export var spawn_player := false
+@export var generate_foliage := true
 @export var nr_of_rooms := 50
 @export_range(0,99) var cull_percentage: int
 @export_range(0,10) var horizontal_spread: int
@@ -41,6 +42,7 @@ var essential_room_pos = [
 var used_cells: Array
 var door_tiles: Array
 var wall_tiles: Array
+var floor_tiles: Array
 
 var astar_grid := AStarGrid2D.new()
 var grid_edge_X := 0
@@ -65,6 +67,7 @@ func _ready():
 	analyseLayout()
 	generateHallways()
 	await get_tree().create_timer(1).timeout
+	generateFoliage()
 	spawnPlayer()
 
 #-------------------------------------------------------------------------------
@@ -171,6 +174,8 @@ func analyseLayout():
 			door_tiles.append(cell)
 		if tile_data.get_custom_data("is_wall"):
 			wall_tiles.append(cell)
+		if tile_data.get_custom_data("is_floor"):
+			floor_tiles.append(cell)
 
 func generateHallways():
 	# Setup astar grid:
@@ -191,6 +196,16 @@ func generateHallways():
 		if not i+2 > door_tiles.size():
 			path = astar_grid.get_id_path(door_tiles[i],door_tiles[i+1])
 			tile_map.set_cells_terrain_path(0,path,0,0,false)
+
+func generateFoliage():
+	var noise_value : float
+	
+	if generate_foliage:
+		for tile in floor_tiles:
+			noise_value = $Foliage.foliage_noise.get_noise_2d(tile.x,tile.y)
+			if noise_value > 0.35:
+				print(tile)
+				tile_map.set_cells_terrain_connect(1,[tile],0,1,false)
 
 func spawnPlayer():
 	if spawn_player:

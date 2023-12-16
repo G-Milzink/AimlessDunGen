@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6p4l1g4umeyo"]
+[gd_scene load_steps=7 format=3 uid="uid://b6p4l1g4umeyo"]
 
 [ext_resource type="Script" path="res://ADG/map.gd" id="1_lnct1"]
 [ext_resource type="Script" path="res://ADG/RoomPatterns.gd" id="2_5u5c0"]
+[ext_resource type="Script" path="res://ADG/Foliage.gd" id="2_g0up0"]
 [ext_resource type="TileSet" uid="uid://r4ixxoffo5bf" path="res://ADG/ADG_Main_TileSet.tres" id="2_ja4nw"]
 [ext_resource type="Script" path="res://ADG/Camera.gd" id="4_xtufv"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_a8e15"]
+noise_type = 2
+frequency = 0.1029
+fractal_type = 2
+fractal_gain = 0.375
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_lnct1")
@@ -14,6 +21,10 @@ vertical_spread = 5
 edge_buffer = 11
 
 [node name="Rooms" type="Node" parent="."]
+
+[node name="Foliage" type="Node" parent="."]
+script = ExtResource("2_g0up0")
+foliage_noise = SubResource("FastNoiseLite_a8e15")
 
 [node name="RoomPatterns" type="Node2D" parent="."]
 script = ExtResource("2_5u5c0")
@@ -39,7 +50,7 @@ layer_0/tile_data = PackedInt32Array(65537, 0, 0, 131073, 0, 1, 196609, 0, 1, 26
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(2009, 1760)
-zoom = Vector2(0.1, 0.1)
+zoom = Vector2(-0.41, -0.41)
 position_smoothing_enabled = true
 position_smoothing_speed = 16.0
 script = ExtResource("4_xtufv")
