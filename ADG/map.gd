@@ -62,7 +62,6 @@ func makeRooms():
 	
 	#Spawn Essential rooms:
 	room = ROOM_START.instantiate()
-	room.position = room_start_position
 	$Rooms.add_child(room)
 	#Generate rng rooms:
 	for i in nr_of_rooms:

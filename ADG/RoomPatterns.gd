@@ -5,7 +5,6 @@ extends Node2D
 @export var room_B_size = Vector2(9,9)
 @export var pattern_spacing := Vector2(2,2)
 
-
 #region TileMapPatterns:
 #Room_Start
 var room_start_north: TileMapPattern
@@ -29,11 +28,11 @@ func _ready():
 	room_A_Patterns()
 	room_B_size = room_B_size + pattern_spacing
 	room_B_Patterns()
-	room_START_size = room_B_size + pattern_spacing
+	room_START_size = room_START_size + pattern_spacing
 	room_Start_Patterns()
 
-
-
+#-------------------------------------------------------------------------------
+#Essential Rooms:
 func room_Start_Patterns():
 	var room_start_tiles: Array
 	# Room_Start north:
@@ -60,6 +59,8 @@ func room_Start_Patterns():
 			room_start_tiles.append(Vector2i(x,y))
 	room_start_west = $Room_Start.get_pattern(0,room_start_tiles)
 
+#-------------------------------------------------------------------------------
+#Rng Rooms:
 func room_A_Patterns():
 	var room_a_tiles: Array
 	# Room_A north:

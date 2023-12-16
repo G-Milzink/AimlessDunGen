@@ -3,3 +3,4 @@ res://ADG/ADG_Main_TileSet.tres
 res://ADG/room_a.tscn
 res://ADG/room_start.tscn
 res://ADG/map.gd
+res://ADG/RoomPatterns.gd
