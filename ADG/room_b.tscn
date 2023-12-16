@@ -9,7 +9,7 @@ mass = 0.2
 lock_rotation = true
 freeze_mode = 1
 script = ExtResource("1_o0lxf")
-room_size = 11
+pattern_size = 11
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(10, 10)

@@ -11,12 +11,17 @@ extends Node2D
 
 #region Constants
 const TILE_SIZE = 32
+
+const ROOM_START = preload("res://ADG/room_start.tscn")
+
 const ROOM_A = preload("res://ADG/room_a.tscn")
 const ROOM_B = preload("res://ADG/room_b.tscn")
 #endregion
 
 #region Function variables
 var grid_origin := Vector2.ZERO
+
+var room_start_position: Vector2
 var room_a_positions: Array
 var room_b_positions: Array
 
@@ -55,7 +60,11 @@ func makeRooms():
 	var pos: Vector2
 	var tile_map_coords: Vector2
 	
-	#Generate rooms:
+	#Spawn Essential rooms:
+	room = ROOM_START.instantiate()
+	room.position = room_start_position
+	$Rooms.add_child(room)
+	#Generate rng rooms:
 	for i in nr_of_rooms:
 		rng = randi() % 100
 		if rng >= 50:
@@ -72,14 +81,15 @@ func makeRooms():
 	
 	# cull rooms:
 	for _room in $Rooms.get_children():
-		if randi() % 100 <= cull_percentage:
-			_room.queue_free()
-		else:
-			_room.set_freeze_enabled(true)
-			if _room.position.x < grid_origin.x:
-				grid_origin.x = _room.position.x
-			if _room.position.y < grid_origin.y:
-				grid_origin.y = _room.position.y
+		if !_room.is_in_group("essential"):
+			if randi() % 100 <= cull_percentage:
+				_room.queue_free()
+			else:
+				_room.set_freeze_enabled(true)
+				if _room.position.x < grid_origin.x:
+					grid_origin.x = _room.position.x
+				if _room.position.y < grid_origin.y:
+					grid_origin.y = _room.position.y
 	
 	#wait for end of frame:
 	await Engine.get_main_loop().process_frame
@@ -88,8 +98,9 @@ func makeRooms():
 	for _room in $Rooms.get_children():
 		_room.position = (_room.position - grid_origin) + Vector2(TILE_SIZE,TILE_SIZE)
 		tile_map_coords = tile_map.local_to_map(_room.position)
-		
 		#sort rooms by type and store tile map coordinates:
+		if _room.is_in_group("start"):
+			room_start_position = tile_map_coords
 		if _room.is_in_group("room_a"):
 			room_a_positions.append(tile_map_coords)
 		if _room.is_in_group("room_b"):
@@ -98,6 +109,15 @@ func makeRooms():
 func placePatterns():
 	var rng: int
 	var pattern: TileMapPattern
+	
+	#Place start room:
+	rng = randi() % 100
+	if rng < 25 : pattern = $RoomPatterns.room_start_north
+	elif rng < 50 : pattern = $RoomPatterns.room_start_east
+	elif rng < 75 : pattern = $RoomPatterns.room_start_south
+	else: pattern = $RoomPatterns.room_start_west
+	tile_map.set_pattern(0,room_start_position,pattern)
+	#Place rng rooms: 
 	for pos in room_a_positions:
 		rng = randi() % 100
 		if rng < 25 : pattern = $RoomPatterns.room_a_north
