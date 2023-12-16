@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var spawn_player := false
 @export var nr_of_rooms := 50
 @export_range(0,99) var cull_percentage: int
 @export_range(0,10) var horizontal_spread: int
@@ -32,21 +33,11 @@ func _ready():
 	#RenderingServer.set_default_clear_color(Color("080a12"))
 	RenderingServer.set_default_clear_color(Color.DARK_SLATE_GRAY)
 	randomize()
-	print("make rooms:")
 	makeRooms()
-	print("done")
-	print("waiting")
 	await get_tree().create_timer(1).timeout
-	print("done")
-	print("placing")
 	placePatterns()
-	print("done")
-	print("analysing")
 	analyseLayout()
-	print("done")
-	print("genning hallways")
 	generateHallways()
-	print("done")
 
 func makeRooms():
 	var rng: int
