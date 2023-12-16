@@ -49,6 +49,8 @@ position = Vector2(-2, 0)
 tile_set = ExtResource("2_ja4nw")
 format = 2
 layer_0/name = "Base"
+layer_1/name = "Foliage"
+layer_1/tile_data = PackedInt32Array()
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
