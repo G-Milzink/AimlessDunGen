@@ -13,6 +13,7 @@ extends Node2D
 const TILE_SIZE = 32
 
 const ROOM_START = preload("res://ADG/room_start.tscn")
+const PLAYER = preload("res://ADG/player.tscn")
 
 const ROOM_A = preload("res://ADG/room_a.tscn")
 const ROOM_B = preload("res://ADG/room_b.tscn")
@@ -22,6 +23,8 @@ const ROOM_B = preload("res://ADG/room_b.tscn")
 var grid_origin := Vector2.ZERO
 
 var room_start_position: Vector2
+var player_spawn_position: Vector2
+
 var room_a_positions: Array
 var room_b_positions: Array
 
@@ -59,6 +62,10 @@ func _ready():
 	placePatterns()
 	analyseLayout()
 	generateHallways()
+	await get_tree().create_timer(1).timeout
+	var player = PLAYER.instantiate()
+	player.position = player_spawn_position
+	add_child(player)
 
 #-------------------------------------------------------------------------------
 
@@ -155,6 +162,8 @@ func analyseLayout():
 			grid_edge_Y = cell.y
 		# Filter out tiles accoring to custom data:
 		tile_data = tile_map.get_cell_tile_data(0,cell)
+		if tile_data.get_custom_data("is_player_spawn"):
+			player_spawn_position = tile_map.map_to_local(cell)
 		if tile_data.get_custom_data("is_door"):
 			door_tiles.append(cell)
 		if tile_data.get_custom_data("is_wall"):
@@ -179,7 +188,5 @@ func generateHallways():
 		if not i+2 > door_tiles.size():
 			path = astar_grid.get_id_path(door_tiles[i],door_tiles[i+1])
 			tile_map.set_cells_terrain_path(0,path,0,0,false)
-			for cell in tile_map.get_used_cells(0):
-				if tile_map.get_cell_tile_data(0,cell).get_custom_data("is_wall"):
-					astar_grid.set_point_solid(cell)
+
 

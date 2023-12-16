@@ -1,8 +1,10 @@
+CollisionShape2D
+Sprite2D
+CharacterBody2D
 ColorRect
 TileMap
 Node2D
 Node
-CollisionShape2D
 StaticBody2D
 RigidBody2D
 Camera2D

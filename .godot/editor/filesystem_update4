@@ -2,3 +2,6 @@ res://ADG/map.tscn
 res://ADG/ADG_Main_TileSet.tres
 res://ADG/room_a.tscn
 res://ADG/map.gd
+res://ADG/player.tscn
+res://ADG/player.gd
+res://ADG/Camera.gd
