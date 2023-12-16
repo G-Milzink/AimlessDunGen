@@ -1,0 +1,37 @@
+todo:
+	loot system
+		loot rooms
+	combat mechanics
+		rng enemies
+			exp system
+	end room
+		map transitions
+	boss room
+		boss battle system
+			lock room mechanics
+		end room unlock
+	item room
+		power up system
+	graphics
+		improve tileset
+		redo current rooms
+		lighting
+		normal maps?
+	content:
+		player design
+		enemy desgin
+		power up design
+		additional tilesets
+	dungeon generation:
+		puddles
+		lights
+		dungeon decor
+
+doing:
+	foilage generation
+
+
+
+
+
+done:
