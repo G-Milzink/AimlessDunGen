@@ -25,6 +25,14 @@ var room_start_position: Vector2
 var room_a_positions: Array
 var room_b_positions: Array
 
+var essential_room_pos = [
+	Vector2(0,50),
+	Vector2(50,0),
+	Vector2(-50,-50),
+	Vector2(-50,50),
+	Vector2(50,-50),
+	Vector2(50,50)]
+
 var used_cells: Array
 var door_tiles: Array
 var wall_tiles: Array
@@ -43,8 +51,8 @@ func _input(event):
 		get_tree().reload_current_scene()
 
 func _ready():
-	#RenderingServer.set_default_clear_color(Color("080a12"))
-	RenderingServer.set_default_clear_color(Color.DARK_SLATE_GRAY)
+	RenderingServer.set_default_clear_color(Color("080a12"))
+	#RenderingServer.set_default_clear_color(Color.DARK_SLATE_GRAY)
 	randomize()
 	makeRooms()
 	await get_tree().create_timer(1).timeout
@@ -61,17 +69,20 @@ func makeRooms():
 	var tile_map_coords: Vector2
 	
 	#Spawn Essential rooms:
+	essential_room_pos.shuffle()
 	room = ROOM_START.instantiate()
+	room.position = essential_room_pos.pop_front()
 	$Rooms.add_child(room)
 	#Generate rng rooms:
 	for i in nr_of_rooms:
 		rng = randi() % 100
-		if rng >= 50:
-			room = ROOM_A.instantiate()
-		else:
-			room = ROOM_B.instantiate()
 		pos.x = randi_range(-horizontal_spread,horizontal_spread)
 		pos.y = randi_range(-vertical_spread,vertical_spread)
+		if rng >= 50:
+			room = ROOM_A.instantiate()
+			room.position = pos
+		else:
+			room = ROOM_B.instantiate()
 		room.position = pos
 		$Rooms.add_child(room)
 	
@@ -80,15 +91,15 @@ func makeRooms():
 	
 	# cull rooms:
 	for _room in $Rooms.get_children():
-		if !_room.is_in_group("essential"):
-			if randi() % 100 <= cull_percentage:
-				_room.queue_free()
-			else:
-				_room.set_freeze_enabled(true)
-				if _room.position.x < grid_origin.x:
-					grid_origin.x = _room.position.x
-				if _room.position.y < grid_origin.y:
-					grid_origin.y = _room.position.y
+		if _room.is_in_group("essential")\
+		or randi() % 100 >= cull_percentage:
+			_room.set_freeze_enabled(true)
+			if _room.position.x < grid_origin.x:
+				grid_origin.x = _room.position.x
+			if _room.position.y < grid_origin.y:
+				grid_origin.y = _room.position.y
+		else:
+			_room.queue_free()
 	
 	#wait for end of frame:
 	await Engine.get_main_loop().process_frame
@@ -166,7 +177,6 @@ func generateHallways():
 	var path: = []
 	for i in door_tiles.size():
 		path = astar_grid.get_id_path(door_tiles[0],door_tiles[i])
-		tile_map.set_cells_terrain_connect(0,path,0,0,false)
-
+		tile_map.set_cells_terrain_path(0,path,0,0,false)
 
 
