@@ -65,9 +65,7 @@ func _ready():
 	analyseLayout()
 	generateHallways()
 	await get_tree().create_timer(1).timeout
-	var player = PLAYER.instantiate()
-	player.position = player_spawn_position
-	add_child(player)
+	spawnPlayer()
 
 #-------------------------------------------------------------------------------
 
@@ -153,8 +151,9 @@ func placePatterns():
 		tile_map.set_pattern(0,pos,pattern)
 
 func analyseLayout():
-	#Analyse grid:
 	var tile_data: TileData
+	
+	#Analyse grid:
 	used_cells = tile_map.get_used_cells(0)
 	for cell in used_cells:
 		# Determine grid edges:
@@ -162,6 +161,7 @@ func analyseLayout():
 			grid_edge_X = cell.x
 		if cell.y > grid_edge_Y:
 			grid_edge_Y = cell.y
+		
 		# Filter out tiles accoring to custom data:
 		tile_data = tile_map.get_cell_tile_data(0,cell)
 		if tile_data.get_custom_data("is_player_spawn"):
@@ -192,4 +192,8 @@ func generateHallways():
 			path = astar_grid.get_id_path(door_tiles[i],door_tiles[i+1])
 			tile_map.set_cells_terrain_path(0,path,0,0,false)
 
-
+func spawnPlayer():
+	if spawn_player:
+		var player = PLAYER.instantiate()
+		player.position = player_spawn_position
+		add_child(player)
