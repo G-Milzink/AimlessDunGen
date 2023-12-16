@@ -1,16 +1,21 @@
 extends Node2D
 
+#region Exported variables
 @export var spawn_player := false
 @export var nr_of_rooms := 50
 @export_range(0,99) var cull_percentage: int
 @export_range(0,10) var horizontal_spread: int
 @export_range(0,10) var vertical_spread: int
 @export var edge_buffer: int
+#endregion
 
+#region Constants
 const TILE_SIZE = 32
 const ROOM_A = preload("res://ADG/room_a.tscn")
 const ROOM_B = preload("res://ADG/room_b.tscn")
+#endregion
 
+#region Function variables
 var grid_origin := Vector2.ZERO
 var room_a_positions: Array
 var room_b_positions: Array
@@ -22,8 +27,11 @@ var wall_tiles: Array
 var astar_grid := AStarGrid2D.new()
 var grid_edge_X := 0
 var grid_edge_Y := 0
+#endregion
 
 @onready var tile_map = $TileMap
+
+#-------------------------------------------------------------------------------
 
 func _input(event):
 	if event.is_action_pressed("reset"):
@@ -38,6 +46,8 @@ func _ready():
 	placePatterns()
 	analyseLayout()
 	generateHallways()
+
+#-------------------------------------------------------------------------------
 
 func makeRooms():
 	var rng: int
@@ -138,7 +148,6 @@ func generateHallways():
 	for i in door_tiles.size():
 		path = astar_grid.get_id_path(door_tiles[0],door_tiles[i])
 		tile_map.set_cells_terrain_connect(0,path,0,0,false)
-		
 
 
 
