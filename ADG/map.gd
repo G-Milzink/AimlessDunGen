@@ -17,6 +17,8 @@ const PLAYER = preload("res://ADG/player.tscn")
 
 const ROOM_A = preload("res://ADG/room_a.tscn")
 const ROOM_B = preload("res://ADG/room_b.tscn")
+
+const BASE_TILE = Vector2(1,1)
 #endregion
 
 #region Function variables
@@ -163,6 +165,7 @@ func analyseLayout():
 		# Filter out tiles accoring to custom data:
 		tile_data = tile_map.get_cell_tile_data(0,cell)
 		if tile_data.get_custom_data("is_player_spawn"):
+			tile_map.set_cell(0,cell,0,BASE_TILE)
 			player_spawn_position = tile_map.map_to_local(cell)
 		if tile_data.get_custom_data("is_door"):
 			door_tiles.append(cell)
