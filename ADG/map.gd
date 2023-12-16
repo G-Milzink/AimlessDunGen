@@ -106,7 +106,7 @@ func makeRooms():
 	
 	#move rooms to positive grid positions:
 	for _room in $Rooms.get_children():
-		_room.position = (_room.position - grid_origin) + Vector2(TILE_SIZE,TILE_SIZE)
+		_room.position = (_room.position - grid_origin) + Vector2(TILE_SIZE*5,TILE_SIZE*5)
 		tile_map_coords = tile_map.local_to_map(_room.position)
 		#sort rooms by type and store tile map coordinates:
 		if _room.is_in_group("start"):
@@ -176,7 +176,10 @@ func generateHallways():
 	#create paths:
 	var path: = []
 	for i in door_tiles.size():
-		path = astar_grid.get_id_path(door_tiles[0],door_tiles[i])
-		tile_map.set_cells_terrain_path(0,path,0,0,false)
-
+		if not i+2 > door_tiles.size():
+			path = astar_grid.get_id_path(door_tiles[i],door_tiles[i+1])
+			tile_map.set_cells_terrain_path(0,path,0,0,false)
+			for cell in tile_map.get_used_cells(0):
+				if tile_map.get_cell_tile_data(0,cell).get_custom_data("is_wall"):
+					astar_grid.set_point_solid(cell)
 
