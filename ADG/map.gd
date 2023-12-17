@@ -189,7 +189,6 @@ func generateHallways():
 	# Set wall tiles to solid:
 	for tile in wall_tiles:
 		astar_grid.set_point_solid(tile)
-		
 	#create paths:
 	var path: = []
 	for i in door_tiles.size():
@@ -199,13 +198,17 @@ func generateHallways():
 
 func generateFoliage():
 	var noise_value : float
+	var tile_data : TileData
 	
 	if generate_foliage:
 		for tile in floor_tiles:
-			noise_value = $Foliage.foliage_noise.get_noise_2d(tile.x,tile.y)
-			if noise_value > 0.35:
-				print(tile)
-				tile_map.set_cells_terrain_connect(1,[tile],0,1,false)
+			noise_value = $Nature.foliage_noise.get_noise_2d(tile.x,tile.y)
+			if noise_value > 0.15:
+				tile_map.set_cells_terrain_connect(2,[tile],0,1,false)
+		for cell in used_cells:
+			tile_data = tile_map.get_cell_tile_data(0,cell)
+			if tile_data.get_custom_data("is_wall"):
+				tile_map.erase_cell(2,cell)
 
 func spawnPlayer():
 	if spawn_player:
