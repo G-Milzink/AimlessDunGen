@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var room_START_size = Vector2(11,11)
+@export var room_BOSS_size = Vector2(19,19)
 @export var room_A_size = Vector2(7,7)
 @export var room_B_size = Vector2(9,9)
 @export var pattern_spacing := Vector2(2,2)
@@ -11,6 +12,11 @@ var room_start_north: TileMapPattern
 var room_start_east: TileMapPattern
 var room_start_south: TileMapPattern
 var room_start_west: TileMapPattern
+#Room_Boss
+var room_boss_north: TileMapPattern
+var room_boss_east: TileMapPattern
+var room_boss_south: TileMapPattern
+var room_boss_west: TileMapPattern
 #Room_A
 var room_a_north: TileMapPattern
 var room_a_east: TileMapPattern
@@ -30,6 +36,8 @@ func _ready():
 	room_B_Patterns()
 	room_START_size = room_START_size + pattern_spacing
 	room_Start_Patterns()
+	room_BOSS_size = room_BOSS_size + pattern_spacing
+	room_Boss_Patterns()
 
 #-------------------------------------------------------------------------------
 #Essential Rooms:
@@ -58,6 +66,32 @@ func room_Start_Patterns():
 		for y in room_START_size.y:
 			room_start_tiles.append(Vector2i(x,y))
 	room_start_west = $Room_Start.get_pattern(0,room_start_tiles)
+
+func room_Boss_Patterns():
+	var room_boss_tiles: Array
+	# Room_Bosst north:
+	for x in room_BOSS_size.x:
+		for y in room_BOSS_size.y:
+			room_boss_tiles.append(Vector2i(x,y))
+	room_boss_north = $Room_Boss.get_pattern(0,room_boss_tiles)
+	# Room_Boss east:
+	room_boss_tiles.clear()
+	for x in range(room_BOSS_size.x,room_BOSS_size.x * 2):
+		for y in room_BOSS_size.y:
+			room_boss_tiles.append(Vector2i(x,y))
+	room_boss_east = $Room_Boss.get_pattern(0,room_boss_tiles)
+	# Room_Boss south:
+	room_boss_tiles.clear()
+	for x in range(room_BOSS_size.x*2,room_BOSS_size.x * 3):
+		for y in room_BOSS_size.y:
+			room_boss_tiles.append(Vector2i(x,y))
+	room_boss_south = $Room_Boss.get_pattern(0,room_boss_tiles)
+	# Room_Boss west:
+	room_boss_tiles.clear()
+	for x in range(room_BOSS_size.x*3,room_BOSS_size.x * 4):
+		for y in room_BOSS_size.y:
+			room_boss_tiles.append(Vector2i(x,y))
+	room_boss_west = $Room_Boss.get_pattern(0,room_boss_tiles)
 
 #-------------------------------------------------------------------------------
 #Rng Rooms:

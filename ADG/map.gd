@@ -15,7 +15,7 @@ extends Node2D
 const TILE_SIZE = 32
 # essential rooms:
 const ROOM_START = preload("res://ADG/room_start.tscn")
-const PLAYER = preload("res://ADG/player.tscn")
+const ROOM_BOSS = preload("res://ADG/room_boss.tscn")
 #rng rooms:
 const ROOM_A = preload("res://ADG/room_a.tscn")
 const ROOM_B = preload("res://ADG/room_b.tscn")
@@ -25,12 +25,15 @@ const LIGHT_RNG = preload("res://ADG/light_rng.tscn")
 #tiles:
 const FLOOR_TILE = Vector2(1,1)
 const BLOCKED_FLOOR_TILE = Vector2(4,8)
+#actors:
+const PLAYER = preload("res://ADG/player.tscn")
 #endregion
 
 #region Function variables
 var grid_origin := Vector2.ZERO
 
 var room_start_position: Vector2
+var room_boss_position: Vector2
 var player_spawn_position: Vector2
 
 var room_a_positions: Array
@@ -93,6 +96,9 @@ func makeRooms():
 	room = ROOM_START.instantiate()
 	room.position = essential_room_pos.pop_front()
 	$Rooms.add_child(room)
+	room = ROOM_BOSS.instantiate()
+	room.position = essential_room_pos.pop_front()
+	$Rooms.add_child(room)
 	#Generate rng rooms:
 	for i in nr_of_rooms:
 		rng = randi() % 100
@@ -131,6 +137,8 @@ func makeRooms():
 		#sort rooms by type and store tile map coordinates:
 		if _room.is_in_group("start"):
 			room_start_position = tile_map_coords
+		if _room.is_in_group("boss"):
+			room_boss_position = tile_map_coords
 		if _room.is_in_group("room_a"):
 			room_a_positions.append(tile_map_coords)
 		if _room.is_in_group("room_b"):
@@ -155,13 +163,20 @@ func placePatterns():
 		elif rng < 75 : pattern = $RoomPatterns.room_b_south
 		else: pattern = $RoomPatterns.room_b_west
 		tile_map.set_pattern(0,pos,pattern)
-	#Place start room:
+	#Place START room:
 	rng = randi() % 100
 	if rng < 25 : pattern = $RoomPatterns.room_start_north
 	elif rng < 50 : pattern = $RoomPatterns.room_start_east
 	elif rng < 75 : pattern = $RoomPatterns.room_start_south
 	else: pattern = $RoomPatterns.room_start_west
 	tile_map.set_pattern(0,room_start_position,pattern)
+	#Place START room:
+	rng = randi() % 100
+	if rng < 25 : pattern = $RoomPatterns.room_boss_north
+	elif rng < 50 : pattern = $RoomPatterns.room_boss_east
+	elif rng < 75 : pattern = $RoomPatterns.room_boss_south
+	else: pattern = $RoomPatterns.room_boss_west
+	tile_map.set_pattern(0,room_boss_position,pattern)
 
 func analyseLayout():
 	var tile_data: TileData
@@ -208,7 +223,12 @@ func generateHallways():
 	
 	#create paths:
 	var path := []
-	door_tiles.sort()
+	door_tiles.shuffle()
+	for i in door_tiles.size():
+		if not i+2 > door_tiles.size():
+			path = astar_grid.get_id_path(door_tiles[i],door_tiles[i+1])
+			tile_map.set_cells_terrain_path(0,path,0,0,false)
+	door_tiles.shuffle()
 	for i in door_tiles.size():
 		if not i+2 > door_tiles.size():
 			path = astar_grid.get_id_path(door_tiles[i],door_tiles[i+1])

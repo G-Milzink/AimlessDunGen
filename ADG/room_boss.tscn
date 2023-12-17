@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjya832kopdpv"]
+
+[ext_resource type="Script" path="res://ADG/room.gd" id="1_uvyfs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mo3oc"]
+
+[node name="Room" type="RigidBody2D" groups=["boss", "essential"]]
+mass = 0.2
+lock_rotation = true
+freeze_mode = 1
+script = ExtResource("1_uvyfs")
+pattern_size = 19
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(10, 10)
+shape = SubResource("RectangleShape2D_mo3oc")
+debug_color = Color(0, 0.584314, 0.772549, 0.419608)
