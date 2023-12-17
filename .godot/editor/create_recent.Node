@@ -1,4 +1,5 @@
 PointLight2D
+CanvasModulate
 Node
 CollisionShape2D
 Sprite2D

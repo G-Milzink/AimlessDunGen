@@ -23,15 +23,12 @@ todo:
 		power up design
 		additional tilesets
 	dungeon generation:
-		puddles
-		lights
+		
 		dungeon decor
 
 doing:
-	foilage generation
-
-
-
-
+	lights
 
 done:
+	puddles
+	foliage generation

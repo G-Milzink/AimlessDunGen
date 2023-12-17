@@ -2,6 +2,7 @@ extends Node2D
 
 #region Exported variables
 @export var spawn_player := false
+@export var generate_water := true
 @export var generate_foliage := true
 @export var nr_of_rooms := 50
 @export_range(0,99) var cull_percentage: int
@@ -58,15 +59,16 @@ func _input(event):
 		get_tree().reload_current_scene()
 
 func _ready():
-	RenderingServer.set_default_clear_color(Color("080a12"))
-	#RenderingServer.set_default_clear_color(Color.DARK_SLATE_GRAY)
+	#RenderingServer.set_default_clear_color(Color("080a12"))
+	RenderingServer.set_default_clear_color(Color.DARK_SLATE_GRAY)
 	randomize()
 	makeRooms()
 	await get_tree().create_timer(1).timeout
 	placePatterns()
+	await get_tree().create_timer(1).timeout
 	analyseLayout()
 	generateHallways()
-	await get_tree().create_timer(1).timeout
+	generateWater()
 	generateFoliage()
 	spawnPlayer()
 
@@ -130,13 +132,6 @@ func placePatterns():
 	var rng: int
 	var pattern: TileMapPattern
 	
-	#Place start room:
-	rng = randi() % 100
-	if rng < 25 : pattern = $RoomPatterns.room_start_north
-	elif rng < 50 : pattern = $RoomPatterns.room_start_east
-	elif rng < 75 : pattern = $RoomPatterns.room_start_south
-	else: pattern = $RoomPatterns.room_start_west
-	tile_map.set_pattern(0,room_start_position,pattern)
 	#Place rng rooms: 
 	for pos in room_a_positions:
 		rng = randi() % 100
@@ -152,6 +147,13 @@ func placePatterns():
 		elif rng < 75 : pattern = $RoomPatterns.room_b_south
 		else: pattern = $RoomPatterns.room_b_west
 		tile_map.set_pattern(0,pos,pattern)
+	#Place start room:
+	rng = randi() % 100
+	if rng < 25 : pattern = $RoomPatterns.room_start_north
+	elif rng < 50 : pattern = $RoomPatterns.room_start_east
+	elif rng < 75 : pattern = $RoomPatterns.room_start_south
+	else: pattern = $RoomPatterns.room_start_west
+	tile_map.set_pattern(0,room_start_position,pattern)
 
 func analyseLayout():
 	var tile_data: TileData
@@ -189,12 +191,28 @@ func generateHallways():
 	# Set wall tiles to solid:
 	for tile in wall_tiles:
 		astar_grid.set_point_solid(tile)
+	
 	#create paths:
-	var path: = []
+	var path := []
+	door_tiles.sort()
 	for i in door_tiles.size():
 		if not i+2 > door_tiles.size():
 			path = astar_grid.get_id_path(door_tiles[i],door_tiles[i+1])
 			tile_map.set_cells_terrain_path(0,path,0,0,false)
+
+func generateWater():
+	var noise_value : float
+	var tile_data : TileData
+	
+	if generate_water:
+		for tile in floor_tiles:
+			noise_value = $Nature.water_noise.get_noise_2d(tile.x,tile.y)
+			if noise_value > 0.05:
+				tile_map.set_cells_terrain_connect(1,[tile],0,1,false)
+		for cell in tile_map.get_used_cells(0):
+			tile_data = tile_map.get_cell_tile_data(0,cell)
+			if tile_data.get_custom_data("is_wall"):
+				tile_map.erase_cell(1,cell)
 
 func generateFoliage():
 	var noise_value : float
@@ -203,9 +221,9 @@ func generateFoliage():
 	if generate_foliage:
 		for tile in floor_tiles:
 			noise_value = $Nature.foliage_noise.get_noise_2d(tile.x,tile.y)
-			if noise_value > 0.15:
-				tile_map.set_cells_terrain_connect(2,[tile],0,1,false)
-		for cell in used_cells:
+			if noise_value > 0.05:
+				tile_map.set_cells_terrain_connect(2,[tile],0,2,false)
+		for cell in tile_map.get_used_cells(0):
 			tile_data = tile_map.get_cell_tile_data(0,cell)
 			if tile_data.get_custom_data("is_wall"):
 				tile_map.erase_cell(2,cell)

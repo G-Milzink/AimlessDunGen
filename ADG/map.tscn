@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b6p4l1g4umeyo"]
+[gd_scene load_steps=8 format=3 uid="uid://b6p4l1g4umeyo"]
 
 [ext_resource type="Script" path="res://ADG/map.gd" id="1_lnct1"]
 [ext_resource type="Script" path="res://ADG/RoomPatterns.gd" id="2_5u5c0"]
@@ -11,6 +11,10 @@ noise_type = 2
 frequency = 0.1029
 fractal_type = 2
 fractal_gain = 0.375
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nie6k"]
+noise_type = 3
+frequency = 0.0343
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_lnct1")
@@ -25,6 +29,7 @@ edge_buffer = 11
 [node name="Nature" type="Node" parent="."]
 script = ExtResource("2_g0up0")
 foliage_noise = SubResource("FastNoiseLite_a8e15")
+water_noise = SubResource("FastNoiseLite_nie6k")
 
 [node name="RoomPatterns" type="Node2D" parent="."]
 script = ExtResource("2_5u5c0")
@@ -65,9 +70,6 @@ layer_1/tile_data = PackedInt32Array()
 layer_2/name = "Foliage"
 layer_2/tile_data = PackedInt32Array()
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
-z_index = 1
-offset_right = 10083.0
-offset_bottom = 6184.0
-color = Color(0.560784, 0, 0.14902, 0.341176)
+color = Color(0.118581, 0.118581, 0.118581, 1)

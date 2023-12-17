@@ -18,5 +18,6 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.y = move_toward(velocity.y, 0, speed)
-
+	
+	look_at(get_global_mouse_position())
 	move_and_slide()

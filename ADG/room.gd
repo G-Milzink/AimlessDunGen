@@ -10,6 +10,6 @@ func _ready():
 
 
 func makeRoom():
-	pattern_size += 2
+	pattern_size += 4
 	collision_shape_2d.get_shape().size =\
 	Vector2(pattern_size * tile_size, pattern_size * tile_size)
