@@ -27,3 +27,5 @@ texture = SubResource("GradientTexture2D_qjdf0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ed43o")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]

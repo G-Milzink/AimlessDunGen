@@ -4,3 +4,4 @@ res://ADG/room_a.tscn
 res://ADG/player.tscn
 res://ADG/map.gd
 res://ADG/player.gd
+res://ADG/Camera.gd

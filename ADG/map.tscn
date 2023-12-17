@@ -14,7 +14,8 @@ fractal_gain = 0.375
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_lnct1")
-cull_percentage = 30
+spawn_player = true
+nr_of_rooms = 20
 horizontal_spread = 1
 vertical_spread = 5
 edge_buffer = 11
