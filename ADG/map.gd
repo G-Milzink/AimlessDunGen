@@ -13,14 +13,18 @@ extends Node2D
 
 #region Constants
 const TILE_SIZE = 32
-
+# essential rooms:
 const ROOM_START = preload("res://ADG/room_start.tscn")
 const PLAYER = preload("res://ADG/player.tscn")
-
+#rng rooms:
 const ROOM_A = preload("res://ADG/room_a.tscn")
 const ROOM_B = preload("res://ADG/room_b.tscn")
-
-const BASE_TILE = Vector2(1,1)
+#rng content:
+const LIGHT = preload("res://ADG/light.tscn")
+const LIGHT_RNG = preload("res://ADG/light_rng.tscn")
+#tiles:
+const FLOOR_TILE = Vector2(1,1)
+const BLOCKED_FLOOR_TILE = Vector2(4,8)
 #endregion
 
 #region Function variables
@@ -44,6 +48,8 @@ var used_cells: Array
 var door_tiles: Array
 var wall_tiles: Array
 var floor_tiles: Array
+var light_tiles: Array
+var rng_light_tiles: Array
 
 var astar_grid := AStarGrid2D.new()
 var grid_edge_X := 0
@@ -59,8 +65,8 @@ func _input(event):
 		get_tree().reload_current_scene()
 
 func _ready():
-	#RenderingServer.set_default_clear_color(Color("080a12"))
-	RenderingServer.set_default_clear_color(Color.DARK_SLATE_GRAY)
+	RenderingServer.set_default_clear_color(Color.BLACK)
+	#RenderingServer.set_default_clear_color(Color.DARK_SLATE_GRAY)
 	randomize()
 	makeRooms()
 	await get_tree().create_timer(1).timeout
@@ -70,6 +76,8 @@ func _ready():
 	generateHallways()
 	generateWater()
 	generateFoliage()
+	placeLights()
+	placeRNG_Lights()
 	spawnPlayer()
 
 #-------------------------------------------------------------------------------
@@ -170,7 +178,7 @@ func analyseLayout():
 		# Filter out tiles accoring to custom data:
 		tile_data = tile_map.get_cell_tile_data(0,cell)
 		if tile_data.get_custom_data("is_player_spawn"):
-			tile_map.set_cell(0,cell,0,BASE_TILE)
+			tile_map.set_cell(0,cell,0,FLOOR_TILE)
 			player_spawn_position = tile_map.map_to_local(cell)
 		if tile_data.get_custom_data("is_door"):
 			door_tiles.append(cell)
@@ -178,6 +186,12 @@ func analyseLayout():
 			wall_tiles.append(cell)
 		if tile_data.get_custom_data("is_floor"):
 			floor_tiles.append(cell)
+		if tile_data.get_custom_data("has_light"):
+			light_tiles.append(cell)
+			tile_map.set_cell(0,cell,0,FLOOR_TILE)
+		if tile_data.get_custom_data("has_rng_light"):
+			rng_light_tiles.append(cell)
+			tile_map.set_cell(0,cell,0,FLOOR_TILE)
 
 func generateHallways():
 	# Setup astar grid:
@@ -227,6 +241,20 @@ func generateFoliage():
 			tile_data = tile_map.get_cell_tile_data(0,cell)
 			if tile_data.get_custom_data("is_wall"):
 				tile_map.erase_cell(2,cell)
+
+func placeLights():
+	var light_instance: Node 
+	for tile in  light_tiles:
+		light_instance = LIGHT.instantiate()
+		light_instance.position = tile_map.map_to_local(tile)-Vector2(2,0)
+		$Lighting.add_child(light_instance)
+
+func placeRNG_Lights():
+	var light_instance: Node 
+	for tile in  rng_light_tiles:
+		light_instance = LIGHT_RNG.instantiate()
+		light_instance.position = tile_map.map_to_local(tile)-Vector2(2,0)
+		$Lighting.add_child(light_instance)
 
 func spawnPlayer():
 	if spawn_player:

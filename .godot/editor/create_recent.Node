@@ -1,12 +1,12 @@
-PointLight2D
-CanvasModulate
-Node
 CollisionShape2D
+StaticBody2D
+Node
+PointLight2D
 Sprite2D
-CharacterBody2D
 ColorRect
+CanvasModulate
+CharacterBody2D
 TileMap
 Node2D
-StaticBody2D
 RigidBody2D
 Camera2D

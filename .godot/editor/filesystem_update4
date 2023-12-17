@@ -4,3 +4,9 @@ res://ADG/Foliage.gd
 res://ADG/map.gd
 res://ADG/player.tscn
 res://ADG/notes.txt
+res://light.gd
+res://ADG/light.tscn
+res://ADG/light.gd
+res://ADG/light_rng.tscn
+res://ADG/light_rng.gd
+res://ADG/player_light.gd

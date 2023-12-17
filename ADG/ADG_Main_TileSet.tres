@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=20 format=3 uid="uid://r4ixxoffo5bf"]
+[gd_resource type="TileSet" load_steps=21 format=3 uid="uid://r4ixxoffo5bf"]
 
 [ext_resource type="Texture2D" uid="uid://dascn3t1h8fdt" path="res://ADG/ADG_base.png" id="1_omog8"]
 [ext_resource type="Texture2D" uid="uid://bkuswawvl4vqu" path="res://ADG/foliage_01.png" id="2_leeem"]
@@ -41,6 +41,9 @@ polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_150d2"]
+polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_x3cqi"]
 polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m85bo"]
@@ -657,6 +660,7 @@ texture_region_size = Vector2i(32, 32)
 3:8/0/custom_data_0 = true
 4:8/0 = 0
 4:8/0/terrain_set = 0
+4:8/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_x3cqi")
 4:8/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 4:8/0/physics_layer_0/angular_velocity = 0.0
 4:9/0 = 0
@@ -671,6 +675,14 @@ texture_region_size = Vector2i(32, 32)
 5:8/0/terrain_set = 0
 5:8/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:8/0/physics_layer_0/angular_velocity = 0.0
+7:2/0 = 0
+7:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+7:2/0/physics_layer_0/angular_velocity = 0.0
+7:2/0/custom_data_4 = true
+8:2/0 = 0
+8:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+8:2/0/physics_layer_0/angular_velocity = 0.0
+8:2/0/custom_data_5 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vfvwf"]
 texture = ExtResource("3_c03hd")
@@ -821,6 +833,10 @@ custom_data_layer_2/name = "is_player_spawn"
 custom_data_layer_2/type = 1
 custom_data_layer_3/name = "is_floor"
 custom_data_layer_3/type = 1
+custom_data_layer_4/name = "has_light"
+custom_data_layer_4/type = 1
+custom_data_layer_5/name = "has_rng_light"
+custom_data_layer_5/type = 1
 sources/0 = SubResource("TileSetAtlasSource_m85bo")
 sources/1 = SubResource("TileSetAtlasSource_vfvwf")
 sources/2 = SubResource("TileSetAtlasSource_qb2bb")
