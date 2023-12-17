@@ -13,3 +13,7 @@ res://ADG/player_light.gd
 res://ADG/RoomPatterns.gd
 res://ADG/room_boss.tscn
 res://ADG/Camera.gd
+res://ADG/loot_node.tscn
+res://ADG/loot_node.gd
+res://ADG/Chest_01.tscn
+res://ADG/chest_01.gd
