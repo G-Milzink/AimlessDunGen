@@ -683,6 +683,14 @@ texture_region_size = Vector2i(32, 32)
 8:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 8:2/0/physics_layer_0/angular_velocity = 0.0
 8:2/0/custom_data_5 = true
+7:1/0 = 0
+7:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+7:1/0/physics_layer_0/angular_velocity = 0.0
+7:1/0/custom_data_6 = true
+8:1/0 = 0
+8:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+8:1/0/physics_layer_0/angular_velocity = 0.0
+8:1/0/custom_data_7 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vfvwf"]
 texture = ExtResource("3_c03hd")
@@ -837,6 +845,10 @@ custom_data_layer_4/name = "has_light"
 custom_data_layer_4/type = 1
 custom_data_layer_5/name = "has_rng_light"
 custom_data_layer_5/type = 1
+custom_data_layer_6/name = "has_loot"
+custom_data_layer_6/type = 1
+custom_data_layer_7/name = "can_have_loot"
+custom_data_layer_7/type = 1
 sources/0 = SubResource("TileSetAtlasSource_m85bo")
 sources/1 = SubResource("TileSetAtlasSource_vfvwf")
 sources/2 = SubResource("TileSetAtlasSource_qb2bb")

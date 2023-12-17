@@ -1,6 +1,4 @@
 todo:
-	loot system
-		loot rooms
 	combat mechanics
 		rng enemies
 			exp system
@@ -15,7 +13,7 @@ todo:
 	graphics
 		improve tileset
 		redo current rooms
-		lighting
+		
 		normal maps?
 	content:
 		player design
@@ -23,12 +21,17 @@ todo:
 		power up design
 		additional tilesets
 	dungeon generation:
-		
 		dungeon decor
 
 doing:
-	lights
+	- loot system:
+		loot rooms -
+			lootspawn
+		gold_counter
+	- lighting:
+		?
 
 done:
 	puddles
 	foliage generation
+	lights
