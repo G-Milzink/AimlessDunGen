@@ -67,6 +67,7 @@ var grid_edge_Y := 0
 
 func _input(event):
 	if event.is_action_pressed("reset"):
+		_Globals.player_loot = 0
 		get_tree().reload_current_scene()
 
 func _ready():
@@ -85,6 +86,7 @@ func _ready():
 	placeLights()
 	placeRNG_Lights()
 	placeLoot()
+	lastDitchEffort()
 	spawnPlayer()
 
 #-------------------------------------------------------------------------------
@@ -123,7 +125,8 @@ func makeRooms():
 	for _room in $Rooms.get_children():
 		if _room.is_in_group("essential")\
 		or randi() % 100 >= cull_percentage:
-			_room.set_freeze_enabled(true)
+			#_room.set_freeze_enabled(true)
+			_room.get_child(0).set_deferred("disabled", true)
 			if _room.position.x < grid_origin.x:
 				grid_origin.x = _room.position.x
 			if _room.position.y < grid_origin.y:
@@ -152,6 +155,7 @@ func makeRooms():
 func disableRooms():
 	for room in $Rooms.get_children():
 		room.get_child(0).set_deferred("disabled", true)
+	$Rooms.queue_free()
 
 func placePatterns():
 	var rng: int
@@ -300,3 +304,10 @@ func spawnPlayer():
 		var player = PLAYER.instantiate()
 		player.position = player_spawn_position
 		add_child(player)
+
+func lastDitchEffort():
+	var uc = tile_map.get_used_cells(0)
+	for c in uc:
+		var td = tile_map.get_cell_tile_data(0,c)
+		if td.get_custom_data("is_floor"):
+			tile_map.set_cells_terrain_connect(0,[c],0,0,false)

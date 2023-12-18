@@ -3,3 +3,7 @@ res://tilesets/ADG_Main_TileSet.tres
 res://map/map.tscn
 res://rooms/room_a.tscn
 res://lighting/light.tscn
+res://player/player.gd
+res://player/player.tscn
+res://map/map.gd
+res://map/Camera.gd
