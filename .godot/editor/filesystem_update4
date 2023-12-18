@@ -1,10 +1,7 @@
-res://map/map.tscn
+res://player/player.tscn
 res://tilesets/ADG_Main_TileSet.tres
 res://main.tscn
+res://map/map.tscn
 res://rooms/room_a.tscn
 res://lighting/light.tscn
-res://player/player.tscn
-res://map/map.gd
-res://loot/chest_01.gd
 res://autoload/globals.tscn
-res://autoload/globals.gd
