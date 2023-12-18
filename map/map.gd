@@ -56,6 +56,7 @@ var floor_tiles: Array
 var light_tiles: Array
 var rng_light_tiles: Array
 var loot_tiles: Array
+var rng_loot_tiles: Array
 
 var astar_grid := AStarGrid2D.new()
 var grid_edge_X := 0
@@ -233,6 +234,9 @@ func analyseLayout():
 		if tile_data.get_custom_data("has_loot"):
 			loot_tiles.append(cell)
 			tile_map.set_cell(0,cell,0,FLOOR_TILE)
+		if tile_data.get_custom_data("can_have_loot"):
+			rng_loot_tiles.append(cell)
+			tile_map.set_cell(0,cell,0,FLOOR_TILE)
 
 func generateHallways():
 	# Setup astar grid:
@@ -316,10 +320,17 @@ func placeRNG_Lights():
 
 func placeLoot():
 	var loot_instance: Node 
-	for tile in  loot_tiles:
+	
+	for loot_tile in  loot_tiles:
 		loot_instance = CHEST_01.instantiate()
-		loot_instance.position = tile_map.map_to_local(tile)-Vector2(2,0)
+		loot_instance.position = tile_map.map_to_local(loot_tile)-Vector2(2,0)
 		$Loot.add_child(loot_instance)
+		
+	for rng_loot_tile in  rng_loot_tiles:
+		if randi() % 100 >= 50:
+			loot_instance = CHEST_01.instantiate()
+			loot_instance.position = tile_map.map_to_local(rng_loot_tile)-Vector2(2,0)
+			$Loot.add_child(loot_instance)
 
 func spawnPlayer():
 	if spawn_player:
