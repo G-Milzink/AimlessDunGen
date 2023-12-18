@@ -22,6 +22,7 @@ const ROOM_B = preload("res://ADG/room_b.tscn")
 #rng content:
 const LIGHT = preload("res://ADG/light.tscn")
 const LIGHT_RNG = preload("res://ADG/light_rng.tscn")
+const CHEST_01 = preload("res://ADG/Chest_01.tscn")
 #tiles:
 const FLOOR_TILE = Vector2(1,1)
 const BLOCKED_FLOOR_TILE = Vector2(4,8)
@@ -53,6 +54,7 @@ var wall_tiles: Array
 var floor_tiles: Array
 var light_tiles: Array
 var rng_light_tiles: Array
+var loot_tiles: Array
 
 var astar_grid := AStarGrid2D.new()
 var grid_edge_X := 0
@@ -73,6 +75,7 @@ func _ready():
 	randomize()
 	makeRooms()
 	await get_tree().create_timer(1).timeout
+	deleteRooms()
 	placePatterns()
 	await get_tree().create_timer(1).timeout
 	analyseLayout()
@@ -81,6 +84,7 @@ func _ready():
 	generateFoliage()
 	placeLights()
 	placeRNG_Lights()
+	placeLoot()
 	spawnPlayer()
 
 #-------------------------------------------------------------------------------
@@ -144,6 +148,9 @@ func makeRooms():
 		if _room.is_in_group("room_b"):
 			room_b_positions.append(tile_map_coords)
 
+func deleteRooms():
+	$Rooms.queue_free()
+
 func placePatterns():
 	var rng: int
 	var pattern: TileMapPattern
@@ -206,6 +213,9 @@ func analyseLayout():
 			tile_map.set_cell(0,cell,0,FLOOR_TILE)
 		if tile_data.get_custom_data("has_rng_light"):
 			rng_light_tiles.append(cell)
+			tile_map.set_cell(0,cell,0,FLOOR_TILE)
+		if tile_data.get_custom_data("has_loot"):
+			loot_tiles.append(cell)
 			tile_map.set_cell(0,cell,0,FLOOR_TILE)
 
 func generateHallways():
@@ -275,6 +285,13 @@ func placeRNG_Lights():
 		light_instance = LIGHT_RNG.instantiate()
 		light_instance.position = tile_map.map_to_local(tile)-Vector2(2,0)
 		$Lighting.add_child(light_instance)
+
+func placeLoot():
+	var loot_instance: Node 
+	for tile in  loot_tiles:
+		loot_instance = CHEST_01.instantiate()
+		loot_instance.position = tile_map.map_to_local(tile)-Vector2(2,0)
+		$Loot.add_child(loot_instance)
 
 func spawnPlayer():
 	if spawn_player:

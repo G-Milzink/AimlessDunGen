@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://djkwji28foksj"]
+[gd_scene load_steps=8 format=3 uid="uid://djkwji28foksj"]
 
 [ext_resource type="Script" path="res://ADG/player.gd" id="1_jy1eu"]
 [ext_resource type="Texture2D" uid="uid://vvnpscbo5btk" path="res://ADG/player_base.png" id="2_ub003"]
 [ext_resource type="Script" path="res://ADG/player_light.gd" id="3_81gqj"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_xrqyu"]
+radius = 6.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_ed43o"]
-radius = 13.0
+radius = 11.0
 
 [sub_resource type="Gradient" id="Gradient_jay7r"]
 interpolation_mode = 2
@@ -27,13 +30,40 @@ speed = 75
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+rotation = 1.5708
 texture = ExtResource("2_ub003")
+
+[node name="ColorRect" type="ColorRect" parent="Sprite2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.0
+offset_top = -37.0
+offset_right = -15.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.521569, 0, 0, 1)
+
+[node name="Interaction_range" type="Area2D" parent="Sprite2D"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Interaction_range"]
+position = Vector2(0, -13)
+shape = SubResource("CircleShape2D_xrqyu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ed43o")
+debug_color = Color(0.992157, 0, 0.247059, 0.419608)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(0.741176, 0.741176, 0.509804, 1)
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_mneur")
 script = ExtResource("3_81gqj")
+
+[connection signal="body_entered" from="Sprite2D/Interaction_range" to="." method="_on_interaction_range_body_entered"]
+[connection signal="body_exited" from="Sprite2D/Interaction_range" to="." method="_on_interaction_range_body_exited"]
