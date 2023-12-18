@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=28 format=3 uid="uid://r4ixxoffo5bf"]
+[gd_resource type="TileSet" load_steps=29 format=3 uid="uid://r4ixxoffo5bf"]
 
 [ext_resource type="Texture2D" uid="uid://dascn3t1h8fdt" path="res://0_PNG/ADG_base.png" id="1_4y0kg"]
 [ext_resource type="Texture2D" uid="uid://ti6p6doogskg" path="res://0_PNG/water_01.png" id="2_cft20"]
@@ -918,10 +918,13 @@ texture_region_size = Vector2i(32, 32)
 2:2/0/physics_layer_0/angular_velocity = 0.0
 2:2/0/terrains_peering_bit/top_left_corner = 2
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_dwrbp"]
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_li2sk"]
 texture = ExtResource("4_8jsip")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
+0:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_dwrbp")
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)

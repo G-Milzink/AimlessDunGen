@@ -81,7 +81,6 @@ layer_3/tile_data = PackedInt32Array()
 [node name="Lighting" type="Node" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Lighting"]
-visible = false
 color = Color(0.0470588, 0.0470588, 0.0470588, 1)
 
 [node name="Loot" type="Node" parent="."]
