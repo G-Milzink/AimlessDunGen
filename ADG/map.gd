@@ -14,11 +14,11 @@ extends Node2D
 #region Constants
 const TILE_SIZE = 32
 # essential rooms:
-const ROOM_START = preload("res://ADG/room_start.tscn")
-const ROOM_BOSS = preload("res://ADG/room_boss.tscn")
+const ROOM_START = preload("res://rooms/room_start.tscn")
+const ROOM_BOSS = preload("res://rooms/room_boss.tscn")
 #rng rooms:
-const ROOM_A = preload("res://ADG/room_a.tscn")
-const ROOM_B = preload("res://ADG/room_b.tscn")
+const ROOM_A = preload("res://rooms/room_a.tscn")
+const ROOM_B = preload("res://rooms/room_b.tscn")
 #rng content:
 const LIGHT = preload("res://ADG/light.tscn")
 const LIGHT_RNG = preload("res://ADG/light_rng.tscn")
