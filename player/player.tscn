@@ -37,7 +37,7 @@ metadata/_snap_enabled = true
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_jy1eu")
-speed = 150
+aiming_speed = 25
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

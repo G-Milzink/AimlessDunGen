@@ -1,12 +1,23 @@
 extends CharacterBody2D
 
-@export var speed := 100
+@export var walking_speed := 50
+@export var aiming_speed := 10
+
+@onready var flash_light = $FlashLight
+
+var current_speed: int 
 
 var direction: Vector2
 var can_loot := false
+var can_walk := true
 var current_loot: Node
 
+func _ready():
+	flash_light.visible = false
+	current_speed = walking_speed
+
 func _physics_process(delta):
+	handleAiming()
 	handleMovement()
 	move_and_slide()
 	look_at(get_global_mouse_position())
@@ -15,11 +26,19 @@ func _physics_process(delta):
 func handleMovement():
 	direction.x = Input.get_axis("move_left", "move_right")
 	direction.y = Input.get_axis("move_up", "move_down")
-	if direction:
-		velocity = direction * speed
+	if direction && can_walk:
+		velocity = direction * current_speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
-		velocity.y = move_toward(velocity.y, 0, speed)
+		velocity.x = move_toward(velocity.x, 0, current_speed)
+		velocity.y = move_toward(velocity.y, 0, current_speed)
+
+func handleAiming():
+	if Input.is_action_pressed("Aim"):
+		flash_light.visible = true
+		current_speed = aiming_speed
+	else:
+		flash_light.visible = false
+		current_speed = walking_speed
 
 func _on_interaction_range_body_entered(body):
 	if body.is_in_group("loot"):

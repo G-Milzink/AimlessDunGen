@@ -5,3 +5,5 @@ res://map/map.tscn
 res://rooms/room_a.tscn
 res://lighting/light.tscn
 res://autoload/globals.tscn
+res://player/player.gd
+res://map/map.gd

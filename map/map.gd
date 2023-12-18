@@ -94,8 +94,8 @@ func _ready():
 
 func setup():
 	tile_map.set_collision_animatable(true)
-	#RenderingServer.set_default_clear_color(Color.BLACK)
-	RenderingServer.set_default_clear_color(Color.DARK_SLATE_GRAY)
+	RenderingServer.set_default_clear_color(Color.BLACK)
+	#RenderingServer.set_default_clear_color(Color.DARK_SLATE_GRAY)
 	randomize()
 
 func makeRooms():
