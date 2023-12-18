@@ -75,6 +75,8 @@ layer_1/name = "Water"
 layer_1/tile_data = PackedInt32Array()
 layer_2/name = "Foliage"
 layer_2/tile_data = PackedInt32Array()
+layer_3/name = "Collision"
+layer_3/tile_data = PackedInt32Array()
 
 [node name="Lighting" type="Node" parent="."]
 

@@ -71,9 +71,7 @@ func _input(event):
 		get_tree().reload_current_scene()
 
 func _ready():
-	RenderingServer.set_default_clear_color(Color.BLACK)
-	#RenderingServer.set_default_clear_color(Color.DARK_SLATE_GRAY)
-	randomize()
+	setup()
 	makeRooms()
 	await get_tree().create_timer(1).timeout
 	disableRooms()
@@ -86,10 +84,16 @@ func _ready():
 	placeLights()
 	placeRNG_Lights()
 	placeLoot()
-	lastDitchEffort()
+	fixWallsAndFloors()
 	spawnPlayer()
 
 #-------------------------------------------------------------------------------
+
+func setup():
+	tile_map.set_collision_animatable(true)
+	RenderingServer.set_default_clear_color(Color.BLACK)
+	#RenderingServer.set_default_clear_color(Color.DARK_SLATE_GRAY)
+	randomize()
 
 func makeRooms():
 	var rng: int
@@ -305,9 +309,11 @@ func spawnPlayer():
 		player.position = player_spawn_position
 		add_child(player)
 
-func lastDitchEffort():
+func fixWallsAndFloors():
 	var uc = tile_map.get_used_cells(0)
 	for c in uc:
 		var td = tile_map.get_cell_tile_data(0,c)
 		if td.get_custom_data("is_floor"):
 			tile_map.set_cells_terrain_connect(0,[c],0,0,false)
+		if td.get_custom_data("is_wall"):
+			tile_map.set_cell(3,c,3,Vector2(0,0))
