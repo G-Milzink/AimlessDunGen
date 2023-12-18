@@ -1,6 +1,9 @@
 PointLight2D
-RichTextLabel
 CanvasLayer
+GPUParticles2D
+AnimatedSprite2D
+Sprite2D
+RichTextLabel
 Node
 HBoxContainer
 BoxContainer
@@ -9,6 +12,3 @@ ColorRect
 CollisionShape2D
 Area2D
 Timer
-Sprite2D
-Node2D
-CanvasModulate

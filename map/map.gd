@@ -265,7 +265,6 @@ func updateFloorAndWallLocations():
 	floor_tiles.clear()
 	wall_tiles.clear()
 	var tile_data: TileData
-	floor_tiles
 	for cell in tile_map.get_used_cells(0):
 		tile_data = tile_map.get_cell_tile_data(0,cell)
 		if tile_data.get_custom_data("is_wall"):

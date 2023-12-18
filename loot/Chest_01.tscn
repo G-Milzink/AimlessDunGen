@@ -1,10 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://2ae1kmrn7qlq"]
+[gd_scene load_steps=7 format=3 uid="uid://2ae1kmrn7qlq"]
 
 [ext_resource type="Script" path="res://loot/chest_01.gd" id="1_5huha"]
 [ext_resource type="Texture2D" uid="uid://4jbw3bcp0825" path="res://0_PNG/chest_01.png" id="2_spaoj"]
+[ext_resource type="Texture2D" uid="uid://crtv5stni6c3e" path="res://0_PNG/FX/loot_shine.png" id="3_tte5d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_girmj"]
 size = Vector2(24, 14)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_u0d63"]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 12
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uaq8q"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 1.5
+anim_speed_max = 2.0
 
 [node name="Chest_01" type="StaticBody2D" groups=["loot"]]
 collision_layer = 3
@@ -33,5 +47,12 @@ autowrap_mode = 0
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_u0d63")
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_uaq8q")
+texture = ExtResource("3_tte5d")
+lifetime = 2.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

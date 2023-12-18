@@ -11,8 +11,7 @@ extends StaticBody2D
 var loot_amount : int
 var has_been_looted = false
 
-
-func _process(delta):
+func _process(_delta):
 	if !has_been_looted:
 		if !timer.is_stopped():
 			timer_display.visible = true
