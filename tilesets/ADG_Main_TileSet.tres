@@ -709,6 +709,7 @@ texture_region_size = Vector2i(32, 32)
 6:3/0 = 0
 6:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 6:3/0/physics_layer_0/angular_velocity = 0.0
+6:3/0/custom_data_8 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vfvwf"]
 texture = ExtResource("2_cft20")
@@ -875,6 +876,8 @@ custom_data_layer_6/name = "has_loot"
 custom_data_layer_6/type = 1
 custom_data_layer_7/name = "can_have_loot"
 custom_data_layer_7/type = 1
+custom_data_layer_8/name = "is_boss_spawn"
+custom_data_layer_8/type = 1
 sources/0 = SubResource("TileSetAtlasSource_m85bo")
 sources/1 = SubResource("TileSetAtlasSource_vfvwf")
 sources/2 = SubResource("TileSetAtlasSource_qb2bb")

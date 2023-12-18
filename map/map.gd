@@ -36,6 +36,7 @@ var grid_origin := Vector2.ZERO
 var room_start_position: Vector2
 var room_boss_position: Vector2
 var player_spawn_position: Vector2
+var boss_spawn_position: Vector2
 
 var room_a_positions: Array
 var room_b_positions: Array
@@ -84,15 +85,16 @@ func _ready():
 	placeLights()
 	placeRNG_Lights()
 	placeLoot()
-	fixWallsAndFloors()
+	fixMap_AddCollisions()
+	await get_tree().create_timer(1).timeout
 	spawnPlayer()
 
 #-------------------------------------------------------------------------------
 
 func setup():
 	tile_map.set_collision_animatable(true)
-	RenderingServer.set_default_clear_color(Color.BLACK)
-	#RenderingServer.set_default_clear_color(Color.DARK_SLATE_GRAY)
+	#RenderingServer.set_default_clear_color(Color.BLACK)
+	RenderingServer.set_default_clear_color(Color.DARK_SLATE_GRAY)
 	randomize()
 
 func makeRooms():
@@ -212,6 +214,9 @@ func analyseLayout():
 		if tile_data.get_custom_data("is_player_spawn"):
 			tile_map.set_cell(0,cell,0,FLOOR_TILE)
 			player_spawn_position = tile_map.map_to_local(cell)
+		if tile_data.get_custom_data("is_boss_spawn"):
+			tile_map.set_cell(0,cell,0,FLOOR_TILE)
+			boss_spawn_position = tile_map.map_to_local(cell)
 		if tile_data.get_custom_data("is_door"):
 			door_tiles.append(cell)
 		if tile_data.get_custom_data("is_wall"):
@@ -309,11 +314,13 @@ func spawnPlayer():
 		player.position = player_spawn_position
 		add_child(player)
 
-func fixWallsAndFloors():
+func fixMap_AddCollisions():
 	var uc = tile_map.get_used_cells(0)
 	for c in uc:
 		var td = tile_map.get_cell_tile_data(0,c)
+		#"re-set" floor tiles to ensure the entire floor is surrounded by walls.
 		if td.get_custom_data("is_floor"):
 			tile_map.set_cells_terrain_connect(0,[c],0,0,false)
+		#set collision tiles on seperate layer overlapping wall tiles.
 		if td.get_custom_data("is_wall"):
 			tile_map.set_cell(3,c,3,Vector2(0,0))

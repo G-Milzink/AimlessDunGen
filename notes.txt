@@ -27,7 +27,7 @@ doing:
 	- loot system:
 		loot rooms -
 			lootspawn
-		gold_counter
+		
 	- lighting:
 		?
 
@@ -35,3 +35,5 @@ done:
 	puddles
 	foliage generation
 	lights
+	- loot system:
+		loot_counter
