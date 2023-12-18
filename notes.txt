@@ -26,14 +26,16 @@ todo:
 doing:
 	- loot system:
 		loot rooms -
-			lootspawn
+			ammo spawn
 		
 	- lighting:
 		?
 
 done:
+	boss_room spawn
 	puddles
 	foliage generation
 	lights
 	- loot system:
-		loot_counter
+			loot_counter
+			rng_loot rooms

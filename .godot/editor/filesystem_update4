@@ -1,7 +1,7 @@
-res://loot/Chest_01.tscn
-res://tilesets/ADG_Main_TileSet.tres
 res://main.tscn
+res://tilesets/ADG_Main_TileSet.tres
 res://map/map.tscn
+res://enemies/enemy_01.tscn
 res://map/map.gd
-res://loot/chest_01.gd
-res://player/player.gd
+res://player/player.tscn
+res://enemies/enemy.gd

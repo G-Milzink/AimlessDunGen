@@ -28,18 +28,20 @@ const FLOOR_TILE = Vector2(1,1)
 const BLOCKED_FLOOR_TILE = Vector2(4,8)
 #actors:
 const PLAYER = preload("res://player/player.tscn")
+const ENEMY_01 = preload("res://enemies/enemy_01.tscn")
 #endregion
 
 #region Function variables
 var grid_origin := Vector2.ZERO
 
 var room_start_position: Vector2
-var room_boss_position: Vector2
 var player_spawn_position: Vector2
+var room_boss_position: Vector2
 var boss_spawn_position: Vector2
 
 var room_a_positions: Array
 var room_b_positions: Array
+var enemy_spawn_positions: Array
 
 var essential_room_pos = [
 	Vector2(0,50),
@@ -86,9 +88,9 @@ func _ready():
 	generateWater()
 	generateFoliage()
 	placeLights()
-	placeRNG_Lights()
 	placeLoot()
 	#await get_tree().create_timer(1).timeout
+	spawnEnemies()
 	spawnPlayer()
 
 #-------------------------------------------------------------------------------
@@ -219,6 +221,9 @@ func analyseLayout():
 		if tile_data.get_custom_data("is_boss_spawn"):
 			tile_map.set_cell(0,cell,0,FLOOR_TILE)
 			boss_spawn_position = tile_map.map_to_local(cell)
+		if tile_data.get_custom_data("has_enemy"):
+			tile_map.set_cell(0,cell,0,FLOOR_TILE)
+			enemy_spawn_positions.append(cell)
 		if tile_data.get_custom_data("is_door"):
 			door_tiles.append(cell)
 		if tile_data.get_custom_data("is_wall"):
@@ -308,14 +313,11 @@ func placeLights():
 	var light_instance: Node 
 	for tile in  light_tiles:
 		light_instance = LIGHT.instantiate()
-		light_instance.position = tile_map.map_to_local(tile)-Vector2(2,0)
+		light_instance.position = tile_map.map_to_local(tile)
 		$Lighting.add_child(light_instance)
-
-func placeRNG_Lights():
-	var light_instance: Node 
 	for tile in  rng_light_tiles:
 		light_instance = LIGHT_RNG.instantiate()
-		light_instance.position = tile_map.map_to_local(tile)-Vector2(2,0)
+		light_instance.position = tile_map.map_to_local(tile)
 		$Lighting.add_child(light_instance)
 
 func placeLoot():
@@ -323,14 +325,21 @@ func placeLoot():
 	
 	for loot_tile in  loot_tiles:
 		loot_instance = CHEST_01.instantiate()
-		loot_instance.position = tile_map.map_to_local(loot_tile)-Vector2(2,0)
+		loot_instance.position = tile_map.map_to_local(loot_tile)
 		$Loot.add_child(loot_instance)
 		
 	for rng_loot_tile in  rng_loot_tiles:
 		if randi() % 100 >= 50:
 			loot_instance = CHEST_01.instantiate()
-			loot_instance.position = tile_map.map_to_local(rng_loot_tile)-Vector2(2,0)
+			loot_instance.position = tile_map.map_to_local(rng_loot_tile)
 			$Loot.add_child(loot_instance)
+
+func spawnEnemies():
+	var enemy_instance: Node
+	for pos in enemy_spawn_positions:
+		enemy_instance = ENEMY_01.instantiate()
+		enemy_instance.position = tile_map.map_to_local(pos)
+		$Enemies.add_child(enemy_instance)
 
 func spawnPlayer():
 	if spawn_player:
