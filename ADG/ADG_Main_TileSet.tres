@@ -1,8 +1,8 @@
 [gd_resource type="TileSet" load_steps=22 format=3 uid="uid://r4ixxoffo5bf"]
 
-[ext_resource type="Texture2D" uid="uid://dascn3t1h8fdt" path="res://ADG/ADG_base.png" id="1_omog8"]
-[ext_resource type="Texture2D" uid="uid://bkuswawvl4vqu" path="res://ADG/foliage_01.png" id="2_leeem"]
-[ext_resource type="Texture2D" uid="uid://ti6p6doogskg" path="res://ADG/water_01.png" id="3_c03hd"]
+[ext_resource type="Texture2D" uid="uid://dascn3t1h8fdt" path="res://0_PNG/ADG_base.png" id="1_4y0kg"]
+[ext_resource type="Texture2D" uid="uid://ti6p6doogskg" path="res://0_PNG/water_01.png" id="2_cft20"]
+[ext_resource type="Texture2D" uid="uid://bkuswawvl4vqu" path="res://0_PNG/foliage_01.png" id="3_p8pru"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_0eryw"]
 tile_data = PackedInt32Array(0, 0, 3, 65536, 327680, 1, 131072, 0, 1, 196608, 0, 1, 262144, 0, 1, 327680, 0, 1, 393216, 0, 2, 1, 65536, 0, 65537, 65536, 1, 131073, 65536, 1, 196609, 65536, 1, 262145, 65536, 1, 327681, 65536, 1, 393217, 65536, 2, 2, 262144, 2, 65538, 65536, 1, 131074, 65536, 1, 196610, 65536, 1, 262146, 65536, 1, 327682, 65536, 1, 393218, 65536, 2, 3, 262144, 2, 65539, 65536, 1, 131075, 65536, 1, 196611, 65536, 1, 262147, 65536, 1, 327683, 65536, 1, 393219, 262144, 0, 4, 262144, 2, 65540, 65536, 1, 131076, 65536, 1, 196612, 65536, 1, 262148, 65536, 1, 327684, 65536, 1, 393220, 262144, 0, 5, 262144, 2, 65541, 65536, 1, 131077, 65536, 1, 196613, 65536, 1, 262149, 65536, 1, 327685, 65536, 1, 393221, 65536, 2, 6, 65536, 3, 65542, 131072, 1, 131078, 196608, 1, 196614, 131072, 1, 262150, 196608, 1, 327686, 196608, 1, 393222, 65536, 4)
@@ -50,7 +50,7 @@ polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m85bo"]
-texture = ExtResource("1_omog8")
+texture = ExtResource("1_4y0kg")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/terrain_set = 0
@@ -699,7 +699,7 @@ texture_region_size = Vector2i(32, 32)
 6:3/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vfvwf"]
-texture = ExtResource("3_c03hd")
+texture = ExtResource("2_cft20")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/terrain_set = 0
@@ -764,7 +764,7 @@ texture_region_size = Vector2i(32, 32)
 2:2/0/terrains_peering_bit/top_left_corner = 1
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qb2bb"]
-texture = ExtResource("2_leeem")
+texture = ExtResource("3_p8pru")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/terrain_set = 0

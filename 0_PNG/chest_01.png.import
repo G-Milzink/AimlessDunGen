@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cntehm66ptiva"
-path="res://.godot/imported/player_flashlight.png-2d273d5f6866a525a6e3f932d8da604b.ctex"
+uid="uid://4jbw3bcp0825"
+path="res://.godot/imported/chest_01.png-804383b341b81f89bd91797f4cf09264.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ADG/player_flashlight.png"
-dest_files=["res://.godot/imported/player_flashlight.png-2d273d5f6866a525a6e3f932d8da604b.ctex"]
+source_file="res://0_PNG/chest_01.png"
+dest_files=["res://.godot/imported/chest_01.png-804383b341b81f89bd91797f4cf09264.ctex"]
 
 [params]
 

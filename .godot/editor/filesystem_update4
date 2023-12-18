@@ -1,15 +1,3 @@
-res://ADG/Chest_01.tscn
+res://main.tscn
 res://ADG/ADG_Main_TileSet.tres
 res://ADG/map.tscn
-res://ADG/map.gd
-res://ADG/player.gd
-res://ADG/player.tscn
-res://ADG/chest_01.gd
-res://ADG/room_start.tscn
-res://ADG/room_boss.tscn
-res://ADG/room_b.tscn
-res://ADG/room_a.tscn
-res://Globals.gd
-res://autoload/globals.tscn
-res://autoload/globals.gd
-res://main.tscn

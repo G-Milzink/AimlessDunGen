@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkuswawvl4vqu"
-path="res://.godot/imported/foliage_01.png-15cbd454db249ae7eb723f65e00466ef.ctex"
+uid="uid://ti6p6doogskg"
+path="res://.godot/imported/water_01.png-2e196f66f40c80e60b7a73b40ccce4d1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ADG/foliage_01.png"
-dest_files=["res://.godot/imported/foliage_01.png-15cbd454db249ae7eb723f65e00466ef.ctex"]
+source_file="res://0_PNG/water_01.png"
+dest_files=["res://.godot/imported/water_01.png-2e196f66f40c80e60b7a73b40ccce4d1.ctex"]
 
 [params]
 

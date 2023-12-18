@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4jbw3bcp0825"
-path="res://.godot/imported/chest_01.png-3e900afc11b67bd892fe9ec373529acc.ctex"
+uid="uid://bkuswawvl4vqu"
+path="res://.godot/imported/foliage_01.png-fcf33efd194599648b14419c1ba830ed.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ADG/chest_01.png"
-dest_files=["res://.godot/imported/chest_01.png-3e900afc11b67bd892fe9ec373529acc.ctex"]
+source_file="res://0_PNG/foliage_01.png"
+dest_files=["res://.godot/imported/foliage_01.png-fcf33efd194599648b14419c1ba830ed.ctex"]
 
 [params]
 
