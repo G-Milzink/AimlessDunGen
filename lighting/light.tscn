@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0tgm3566l26i"]
+[gd_scene load_steps=7 format=3 uid="uid://uweshf70mphp"]
 
-[ext_resource type="Script" path="res://ADG/light_rng.gd" id="1_8aevy"]
+[ext_resource type="Script" path="res://lighting/light.gd" id="1_2bqc1"]
 
 [sub_resource type="Gradient" id="Gradient_bfi4u"]
 colors = PackedColorArray(0.32549, 0.588235, 0.588235, 1, 0.0718579, 0.147523, 0.237995, 1)
@@ -30,14 +30,16 @@ metadata/_snap_enabled = true
 size = Vector2(16, 16)
 
 [node name="light" type="Node2D"]
-script = ExtResource("1_8aevy")
+script = ExtResource("1_2bqc1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture2D_j6o67")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(0.278431, 0.882353, 0.709804, 1)
+energy = 0.13
 texture = SubResource("GradientTexture2D_fx5sl")
+texture_scale = 2.0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 

@@ -8,7 +8,6 @@ extends RigidBody2D
 func _ready():
 	makeRoom()
 
-
 func makeRoom():
 	pattern_size += 4
 	collision_shape_2d.get_shape().size =\

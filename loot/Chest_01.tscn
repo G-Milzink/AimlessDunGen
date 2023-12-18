@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://2ae1kmrn7qlq"]
 
-[ext_resource type="Script" path="res://loot/chest_01.gd" id="1_toc7x"]
-[ext_resource type="Texture2D" uid="uid://4jbw3bcp0825" path="res://0_PNG/chest_01.png" id="2_qm1hj"]
+[ext_resource type="Script" path="res://loot/chest_01.gd" id="1_5huha"]
+[ext_resource type="Texture2D" uid="uid://4jbw3bcp0825" path="res://0_PNG/chest_01.png" id="2_spaoj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_girmj"]
 size = Vector2(24, 14)
@@ -9,14 +9,14 @@ size = Vector2(24, 14)
 [node name="Chest_01" type="StaticBody2D" groups=["loot"]]
 collision_layer = 3
 collision_mask = 0
-script = ExtResource("1_toc7x")
+script = ExtResource("1_5huha")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_girmj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_qm1hj")
+texture = ExtResource("2_spaoj")
 hframes = 2
 
 [node name="timer_display" type="RichTextLabel" parent="Sprite2D"]

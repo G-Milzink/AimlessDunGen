@@ -20,8 +20,8 @@ const ROOM_BOSS = preload("res://rooms/room_boss.tscn")
 const ROOM_A = preload("res://rooms/room_a.tscn")
 const ROOM_B = preload("res://rooms/room_b.tscn")
 #rng content:
-const LIGHT = preload("res://ADG/light.tscn")
-const LIGHT_RNG = preload("res://ADG/light_rng.tscn")
+const LIGHT = preload("res://lighting/light.tscn")
+const LIGHT_RNG = preload("res://lighting/light_rng.tscn")
 const CHEST_01 = preload("res://loot/Chest_01.tscn")
 #tiles:
 const FLOOR_TILE = Vector2(1,1)
@@ -75,7 +75,7 @@ func _ready():
 	randomize()
 	makeRooms()
 	await get_tree().create_timer(1).timeout
-	deleteRooms()
+	disableRooms()
 	placePatterns()
 	await get_tree().create_timer(1).timeout
 	analyseLayout()
@@ -129,6 +129,7 @@ func makeRooms():
 			if _room.position.y < grid_origin.y:
 				grid_origin.y = _room.position.y
 		else:
+			_room.get_child(0).set_deferred("disabled", true)
 			_room.queue_free()
 	
 	#wait for end of frame:
@@ -148,8 +149,9 @@ func makeRooms():
 		if _room.is_in_group("room_b"):
 			room_b_positions.append(tile_map_coords)
 
-func deleteRooms():
-	$Rooms.queue_free()
+func disableRooms():
+	for room in $Rooms.get_children():
+		room.get_child(0).set_deferred("disabled", true)
 
 func placePatterns():
 	var rng: int
@@ -251,7 +253,7 @@ func generateWater():
 	if generate_water:
 		for tile in floor_tiles:
 			noise_value = $Nature.water_noise.get_noise_2d(tile.x,tile.y)
-			if noise_value > 0.05:
+			if noise_value > 0.1:
 				tile_map.set_cells_terrain_connect(1,[tile],0,1,false)
 		for cell in tile_map.get_used_cells(0):
 			tile_data = tile_map.get_cell_tile_data(0,cell)
@@ -265,7 +267,7 @@ func generateFoliage():
 	if generate_foliage:
 		for tile in floor_tiles:
 			noise_value = $Nature.foliage_noise.get_noise_2d(tile.x,tile.y)
-			if noise_value > 0.05:
+			if noise_value > 0.45:
 				tile_map.set_cells_terrain_connect(2,[tile],0,2,false)
 		for cell in tile_map.get_used_cells(0):
 			tile_data = tile_map.get_cell_tile_data(0,cell)

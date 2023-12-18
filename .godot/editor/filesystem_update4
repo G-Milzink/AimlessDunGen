@@ -1,4 +1,5 @@
 res://main.tscn
-res://ADG/ADG_Main_TileSet.tres
-res://ADG/map.tscn
-res://ADG/map.gd
+res://tilesets/ADG_Main_TileSet.tres
+res://map/map.tscn
+res://rooms/room_a.tscn
+res://lighting/light.tscn
