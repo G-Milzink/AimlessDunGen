@@ -22,13 +22,11 @@ func handleMovement():
 		velocity.y = move_toward(velocity.y, 0, speed)
 
 func _on_interaction_range_body_entered(body):
-	print("enter: ", body)
 	if body.is_in_group("loot"):
 		can_loot = true
 		current_loot = body
 
 func _on_interaction_range_body_exited(body):
-	print("exit: ", body)
 	if body.is_in_group("loot"):
 		can_loot = false
 		current_loot = null
