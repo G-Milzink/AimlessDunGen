@@ -22,12 +22,12 @@ const ROOM_B = preload("res://rooms/room_b.tscn")
 #rng content:
 const LIGHT = preload("res://ADG/light.tscn")
 const LIGHT_RNG = preload("res://ADG/light_rng.tscn")
-const CHEST_01 = preload("res://ADG/Chest_01.tscn")
+const CHEST_01 = preload("res://loot/Chest_01.tscn")
 #tiles:
 const FLOOR_TILE = Vector2(1,1)
 const BLOCKED_FLOOR_TILE = Vector2(4,8)
 #actors:
-const PLAYER = preload("res://ADG/player.tscn")
+const PLAYER = preload("res://player/player.tscn")
 #endregion
 
 #region Function variables
