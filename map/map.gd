@@ -77,16 +77,17 @@ func _ready():
 	await get_tree().create_timer(1).timeout
 	disableRooms()
 	placePatterns()
-	await get_tree().create_timer(1).timeout
+	#await get_tree().create_timer(1).timeout
 	analyseLayout()
 	generateHallways()
+	fixMap_AddCollisions()
+	updateFloorAndWallLocations()
 	generateWater()
 	generateFoliage()
 	placeLights()
 	placeRNG_Lights()
 	placeLoot()
-	fixMap_AddCollisions()
-	await get_tree().create_timer(1).timeout
+	#await get_tree().create_timer(1).timeout
 	spawnPlayer()
 
 #-------------------------------------------------------------------------------
@@ -259,6 +260,19 @@ func generateHallways():
 			path = astar_grid.get_id_path(door_tiles[i],door_tiles[i+1])
 			tile_map.set_cells_terrain_path(0,path,0,0,false)
 
+func updateFloorAndWallLocations():
+	#clear arrays:
+	floor_tiles.clear()
+	wall_tiles.clear()
+	var tile_data: TileData
+	floor_tiles
+	for cell in tile_map.get_used_cells(0):
+		tile_data = tile_map.get_cell_tile_data(0,cell)
+		if tile_data.get_custom_data("is_wall"):
+			wall_tiles.append(cell)
+		if tile_data.get_custom_data("is_floor"):
+			floor_tiles.append(cell)
+
 func generateWater():
 	var noise_value : float
 	var tile_data : TileData
@@ -280,7 +294,7 @@ func generateFoliage():
 	if generate_foliage:
 		for tile in floor_tiles:
 			noise_value = $Nature.foliage_noise.get_noise_2d(tile.x,tile.y)
-			if noise_value > 0.45:
+			if noise_value > 0.75:
 				tile_map.set_cells_terrain_connect(2,[tile],0,2,false)
 		for cell in tile_map.get_used_cells(0):
 			tile_data = tile_map.get_cell_tile_data(0,cell)

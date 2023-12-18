@@ -5,15 +5,12 @@ extends StaticBody2D
 @onready var sprite_2d = $Sprite2D
 
 
-@export var gold_min = 1
-@export var gold_max = 5
+@export var loot_min = 1
+@export var loot_max = 5
 
-var loot_amount := 5
+var loot_amount : int
 var has_been_looted = false
 
-func ready():
-	loot_amount =  5
-	print("loot_amount?")
 
 func _process(delta):
 	if !has_been_looted:
@@ -28,4 +25,5 @@ func _on_timer_timeout():
 	timer_display.visible = false
 	has_been_looted = true
 	sprite_2d.set_frame(1)
+	loot_amount = randi_range(loot_min,loot_max) * _Globals.currency_multiplier
 	_Globals.player_loot = _Globals.player_loot + loot_amount
