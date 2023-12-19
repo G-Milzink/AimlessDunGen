@@ -4,5 +4,4 @@
 
 [node name="Globals" type="Node"]
 script = ExtResource("1_0tner")
-clip_size = 30
-starting_ammo = 10
+starting_ammo = 6

@@ -16,24 +16,26 @@ var can_walk := true
 var current_loot: Node
 var shooting = false
 var aim_dev = Vector2.ZERO
+var bullet_hit_location = Vector2.ZERO
 
 
 func _ready():
 	Input.set_custom_mouse_cursor(CURSOR_BASE)
 	flash_light.visible = false
 	bullet_trajectory.width = 1.0
+	bullet_trajectory.default_color = Color(1.0,1.0,1.0,0.6)
 	current_speed = walking_speed
 
 func _draw():
 	if shooting == true:
 		bullet_trajectory.clear_points()
 		bullet_trajectory.add_point(position)
-		bullet_trajectory.add_point(get_global_mouse_position()+aim_dev)
+		bullet_trajectory.add_point(bullet_hit_location)
 		shooting = false
 	else:
 		bullet_trajectory.clear_points()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	handleAiming()
 	handleMovement()
 	handleLooting()
@@ -64,16 +66,20 @@ func handleAiming():
 
 func handleAttacking():
 	if _Globals.ammo_in_clip > 0:
+		var target = get_global_mouse_position()
 		_Globals.ammo_in_clip -= 1
 		aim_dev.x = randi_range(-10,10)
 		aim_dev.y = randi_range(-10,10)
 		print(aim_dev)
 		shooting = true
 		var space_state = get_world_2d().direct_space_state
-		var query = PhysicsRayQueryParameters2D.create(position, get_global_mouse_position()+aim_dev)
+		var query = PhysicsRayQueryParameters2D.create(position, target+aim_dev)
 		var result = space_state.intersect_ray(query)
 		if result:
-			print("hit: ", result.collider)
+			print(result.position)
+			bullet_hit_location = result.position
+		else:
+			bullet_hit_location = target+aim_dev
 	else:
 		print("click...")
 

@@ -6,7 +6,7 @@ extends Node
 @export var starting_ammo = 0
 @export var starting_loot = 0
 @export_category("game parameters:")
-@export var currency_multiplier = 5
+@export var loot_multiplier = 5
 
 
 

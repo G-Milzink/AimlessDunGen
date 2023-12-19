@@ -37,7 +37,7 @@ texture = SubResource("GradientTexture2D_j6o67")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(0.278431, 0.882353, 0.709804, 1)
-energy = 0.13
+energy = 0.5
 texture = SubResource("GradientTexture2D_fx5sl")
 texture_scale = 2.0
 

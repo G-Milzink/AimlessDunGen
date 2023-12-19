@@ -4,7 +4,7 @@ extends CanvasLayer
 @onready var ammo_display = $ammo_display
 @onready var clip_display = $clip_display
 
-func _process(delta):
+func _process(_delta):
 	loot_display.clear()
 	loot_display.add_text("LOOT: ")
 	loot_display.add_text(str(_Globals.player_loot))
