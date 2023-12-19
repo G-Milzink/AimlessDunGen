@@ -17,4 +17,13 @@ shape = SubResource("CircleShape2D_ov6wb")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1
-debug_enabled = true
+path_metadata_flags = 0
+
+[node name="LineOfSight" type="RayCast2D" parent="."]
+target_position = Vector2(256, 0)
+
+[node name="LineOfSightTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 30.0
+
+[connection signal="timeout" from="LineOfSightTimer" to="." method="_on_line_of_sight_timer_timeout"]
