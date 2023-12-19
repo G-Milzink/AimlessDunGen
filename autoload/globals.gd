@@ -1,6 +1,8 @@
 extends Node
 
 @export_category("player parameters:")
+@export var starting_damage = 30
+@export var damage_rng = 5
 @export var start_with_full_clip = true
 @export var clip_size = 6
 @export var starting_ammo = 0
@@ -8,8 +10,7 @@ extends Node
 @export_category("game parameters:")
 @export var loot_multiplier = 5
 
-
-
+var current_damage: int
 var player_ammo: int
 var ammo_in_clip: int
 var player_loot: int
@@ -21,3 +22,4 @@ func _ready():
 		ammo_in_clip = 0
 	player_ammo = starting_ammo
 	player_loot = starting_loot
+	current_damage = starting_damage

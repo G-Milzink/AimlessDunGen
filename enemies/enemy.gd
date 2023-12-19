@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-@export var hitpoints = 3
 @export var walking_speed = 35
 @export var hunting_duration = 30 #in seconds
 
@@ -23,7 +22,6 @@ func _ready():
 
 func _physics_process(delta):
 	if player == null:
-		print("waiting")
 		if get_tree().get_first_node_in_group("player"):
 			player = get_tree().get_first_node_in_group("player")
 			player_exists = true

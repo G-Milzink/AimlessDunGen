@@ -25,7 +25,6 @@ func _process(delta):
 func modulateEnergy(delta):
 	time += delta
 	shine.energy = ((sin(time * shine_freq)+1)*0.5) * shine_intensity
-	print(shine.energy)
 
 func handleBeingLooted():
 	if !has_been_looted:

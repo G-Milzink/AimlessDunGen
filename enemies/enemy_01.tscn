@@ -1,13 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://bdbf7s2tikqo6"]
+[gd_scene load_steps=5 format=3 uid="uid://bdbf7s2tikqo6"]
 
 [ext_resource type="Script" path="res://enemies/enemy.gd" id="1_77hdd"]
 [ext_resource type="Texture2D" uid="uid://bjii2tld6govm" path="res://0_PNG/enemies/Enemy_01/enemy_01.png" id="1_uibtr"]
+[ext_resource type="PackedScene" uid="uid://5pfhpxqyhrw0" path="res://nodes/health.tscn" id="2_371nr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ov6wb"]
 radius = 9.05539
 
-[node name="Enemy_01" type="CharacterBody2D"]
+[node name="Enemy_01" type="CharacterBody2D" groups=["enemy"]]
 script = ExtResource("1_77hdd")
+
+[node name="Health" parent="." groups=["health_node"] instance=ExtResource("2_371nr")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_uibtr")

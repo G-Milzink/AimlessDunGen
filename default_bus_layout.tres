@@ -1,0 +1,35 @@
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://b8y46dyenup5k"]
+
+[sub_resource type="AudioEffectEQ" id="AudioEffectEQ_sy26r"]
+resource_name = "EQ"
+band_db/100_hz = 5.8
+band_db/320_hz = -6.9
+band_db/1000_hz = -35.3
+band_db/3200_hz = -54.5
+band_db/10000_hz = 18.5
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_8ys0j"]
+resource_name = "Reverb"
+room_size = 0.93
+damping = 0.26
+hipass = 0.17
+dry = 0.79
+wet = 0.7
+
+[resource]
+bus/1/name = &"Ambience"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = -23.431
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectEQ_sy26r")
+bus/1/effect/0/enabled = true
+bus/2/name = &"Environment"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = 1.17604
+bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectReverb_8ys0j")
+bus/2/effect/0/enabled = true

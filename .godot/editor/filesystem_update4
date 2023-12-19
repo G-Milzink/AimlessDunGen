@@ -14,3 +14,8 @@ res://autoload/globals.gd
 res://lighting/light.tscn
 res://lighting/light.gd
 res://lighting/light_rng.gd
+res://enemies/enemy.gd
+res://nodes/health.gd
+res://nodes/health.tscn
+res://default_bus_layout.tres
+res://audio/audio.tscn

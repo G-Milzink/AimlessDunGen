@@ -62,7 +62,7 @@ water_noise = SubResource("FastNoiseLite_dgymk")
 [node name="Lighting" type="Node" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Lighting"]
-color = Color(0, 0, 0, 1)
+color = Color(0.0431373, 0.0431373, 0.0431373, 1)
 
 [node name="Loot" type="Node" parent="."]
 

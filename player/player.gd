@@ -68,20 +68,26 @@ func handleAttacking():
 	if _Globals.ammo_in_clip > 0:
 		var target = get_global_mouse_position()
 		_Globals.ammo_in_clip -= 1
-		aim_dev.x = randi_range(-10,10)
-		aim_dev.y = randi_range(-10,10)
-		print(aim_dev)
+		aim_dev.x = randi_range(-6,6)
+		aim_dev.y = randi_range(-6,6)
 		shooting = true
 		var space_state = get_world_2d().direct_space_state
 		var query = PhysicsRayQueryParameters2D.create(position, target+aim_dev)
 		var result = space_state.intersect_ray(query)
 		if result:
-			print(result.position)
 			bullet_hit_location = result.position
+			if result.collider.is_in_group("enemy"):
+				var damage_output = calculateDamage(_Globals.current_damage)
+				result.collider.get_child(0).takeDamage(damage_output)
+				print(damage_output)
 		else:
 			bullet_hit_location = target+aim_dev
 	else:
 		print("click...")
+
+func calculateDamage(current_damage):
+	var damage_output = current_damage * randf_range(0.9,1.1)
+	return round(damage_output)
 
 func _on_interaction_range_body_entered(body):
 	if body.is_in_group("loot"):

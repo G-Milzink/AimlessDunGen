@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbvn6al07jxod"]
+
+[ext_resource type="AudioStream" uid="uid://b3hocru4g3g31" path="res://audio/ambience/Ambience_01.mp3" id="1_em2wx"]
+[ext_resource type="AudioStream" uid="uid://brpjq2oe0eb61" path="res://audio/environmental/water_01.wav" id="2_s3mch"]
+
+[node name="Audio" type="Node"]
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_em2wx")
+autoplay = true
+
+[node name="Environment" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_s3mch")
+pitch_scale = 0.2
+autoplay = true
+bus = &"Environment"
