@@ -69,11 +69,6 @@ var grid_edge_Y := 0
 
 #-------------------------------------------------------------------------------
 
-func _input(event):
-	if event.is_action_pressed("reset"):
-		_Globals.player_loot = 0
-		get_tree().reload_current_scene()
-
 func _ready():
 	setup()
 	makeRooms()

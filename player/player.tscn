@@ -70,5 +70,8 @@ shadow_enabled = true
 texture = SubResource("GradientTexture2D_rt6ue")
 offset = Vector2(160, 0)
 
+[node name="Line2D" type="Line2D" parent="."]
+top_level = true
+
 [connection signal="body_entered" from="Sprite2D/Interaction_range" to="." method="_on_interaction_range_body_entered"]
 [connection signal="body_exited" from="Sprite2D/Interaction_range" to="." method="_on_interaction_range_body_exited"]
