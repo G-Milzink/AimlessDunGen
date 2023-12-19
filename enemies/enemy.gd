@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var nav_agent = $NavigationAgent2D
 @onready var line_of_sight_ray = $LineOfSight
 @onready var line_of_sight_timer = $LineOfSightTimer
+@onready var sprite_2d = $Sprite2D
 
 const ACCEL = 5
 
@@ -21,19 +22,13 @@ func _ready():
 	current_speed = walking_speed
 
 func _physics_process(delta):
-	if player == null:
-		if get_tree().get_first_node_in_group("player"):
-			player = get_tree().get_first_node_in_group("player")
-			player_exists = true
-		else:
-			player_exists = false
-	
+	checkForPlayer()
 	if player_exists:
 		spotPlayer()
 		huntPlayer(delta)
 		look_at(player.position)
-		
 	move_and_slide()
+	handleAnimation()
 
 func spotPlayer():
 	if !hunting_player:
@@ -44,6 +39,14 @@ func spotPlayer():
 	else:
 		if line_of_sight_timer.is_stopped():
 			line_of_sight_timer.start(hunting_duration)
+
+func checkForPlayer():
+	if player == null:
+		if get_tree().get_first_node_in_group("player"):
+			player = get_tree().get_first_node_in_group("player")
+			player_exists = true
+		else:
+			player_exists = false
 
 func _on_line_of_sight_timer_timeout():
 	hunting_player = false
@@ -56,3 +59,9 @@ func huntPlayer(delta):
 		velocity = velocity.lerp(direction * current_speed, ACCEL * delta)
 	else:
 		velocity = velocity.lerp(Vector2(0,0), ACCEL*delta)
+
+func handleAnimation():
+	if hunting_player:
+		sprite_2d.set_frame(1)
+	else:
+		sprite_2d.set_frame(0)

@@ -7,6 +7,7 @@
 
 [node name="Ambience" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_em2wx")
+volume_db = -12.0
 autoplay = true
 
 [node name="Environment" type="AudioStreamPlayer" parent="."]
@@ -14,3 +15,5 @@ stream = ExtResource("2_s3mch")
 pitch_scale = 0.2
 autoplay = true
 bus = &"Environment"
+
+[node name="Player" type="Node" parent="."]
