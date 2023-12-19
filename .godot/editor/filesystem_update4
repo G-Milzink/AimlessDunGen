@@ -1,7 +1,8 @@
-res://main.tscn
+res://hud/hud.tscn
 res://tilesets/ADG_Main_TileSet.tres
-res://map/map.tscn
+res://autoload/globals.gd
 res://enemies/enemy_01.tscn
-res://player/player.tscn
-res://enemies/enemy.gd
+res://main.tscn
+res://map/map.tscn
 res://rooms/room_a.tscn
+res://player/player.tscn

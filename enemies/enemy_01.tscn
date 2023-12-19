@@ -20,10 +20,16 @@ path_postprocessing = 1
 path_metadata_flags = 0
 
 [node name="LineOfSight" type="RayCast2D" parent="."]
-target_position = Vector2(256, 0)
+target_position = Vector2(192, 0)
 
 [node name="LineOfSightTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 30.0
+one_shot = true
+
+[node name="IdleLookTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
 
 [connection signal="timeout" from="LineOfSightTimer" to="." method="_on_line_of_sight_timer_timeout"]
+[connection signal="timeout" from="IdleLookTimer" to="." method="_on_idle_look_timer_timeout"]
