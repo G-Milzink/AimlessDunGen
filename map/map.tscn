@@ -19,7 +19,7 @@ frequency = 0.0588
 script = ExtResource("1_lnct1")
 spawn_player = true
 nr_of_rooms = 20
-cull_percentage = 25
+cull_percentage = 10
 horizontal_spread = 2
 vertical_spread = 2
 edge_buffer = 11
@@ -63,7 +63,7 @@ water_noise = SubResource("FastNoiseLite_dgymk")
 [node name="Lighting" type="Node" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Lighting"]
-color = Color(0.0431373, 0.0431373, 0.0431373, 1)
+color = Color(0.109804, 0.109804, 0.109804, 1)
 
 [node name="Loot" type="Node" parent="."]
 

@@ -9,7 +9,7 @@ radius = 9.05539
 
 [node name="Enemy_01" type="CharacterBody2D" groups=["enemy"]]
 script = ExtResource("1_77hdd")
-walking_speed = 65
+walking_speed = 40
 
 [node name="Health" parent="." groups=["health_node"] instance=ExtResource("2_371nr")]
 

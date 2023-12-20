@@ -42,6 +42,7 @@ func _draw():
 		shot_frame = 0
 
 func _physics_process(_delta):
+	print(direction)
 	handleAiming()
 	handleMovement()
 	handleLooting()
@@ -51,13 +52,19 @@ func _physics_process(_delta):
 	queue_redraw()
 
 func handleMovement():
-	direction.x = Input.get_axis("move_left", "move_right")
-	direction.y = Input.get_axis("move_up", "move_down")
-	if direction && can_walk:
-		velocity = direction * current_speed
-	else:
-		velocity.x = move_toward(velocity.x, 0, current_speed)
-		velocity.y = move_toward(velocity.y, 0, current_speed)
+	direction = -(position - get_global_mouse_position()).normalized()
+	if can_walk:
+		if Input.is_action_pressed("move_up"):
+			velocity = direction * current_speed
+		elif Input.is_action_pressed("move_down"):
+			velocity = -direction * current_speed
+		elif Input.is_action_pressed("move_right"):
+			velocity = direction.rotated(deg_to_rad(90)) * current_speed
+		elif Input.is_action_pressed("move_left"):
+			velocity = direction.rotated(deg_to_rad(-90)) * current_speed
+		else:
+			velocity.x = move_toward(velocity.x, 0, current_speed)
+			velocity.y = move_toward(velocity.y, 0, current_speed)
 
 func handleAiming():
 	if Input.is_action_pressed("aim"):
@@ -118,17 +125,23 @@ func handleLooting():
 			current_loot.get_child(2).stop()
 
 func HandleAnimation():
-	if velocity != Vector2.ZERO:
+	if Input.is_action_pressed("move_up"):
 		if shooting:
 			sprite.play("shoot")
 		elif is_aiming:
 			sprite.play("aim_walk")
 		else:
 			sprite.play("walk")
-	elif velocity <= Vector2(0.2,0.2):
+	elif Input.is_action_pressed("move_down"):
 		if shooting:
 			sprite.play("shoot")
-		elif is_aiming:
-			sprite.play("aim")
+		if is_aiming:
+			sprite.play("aim_walk_back")
 		else:
-			sprite.play("idle")
+			sprite.play("walk_back")
+		if shooting:
+			sprite.play("shoot")
+	elif is_aiming:
+		sprite.play("aim")
+	else:
+		sprite.play("idle")

@@ -1,9 +1,13 @@
 res://default_bus_layout.tres
 res://player/player.tscn
 res://tilesets/ADG_Main_TileSet.tres
+res://player/player.gd
 res://autoload/globals.tscn
 res://audio/audio.tscn
 res://main.tscn
 res://map/map.tscn
-res://player/player.gd
 res://enemies/enemy_01.tscn
+res://lighting/light_rng.tscn
+res://lighting/light.tscn
+res://map/map.gd
+res://map/Camera.gd
