@@ -5,6 +5,7 @@ extends CharacterBody2D
 
 @onready var flash_light = $FlashLight
 @onready var bullet_trajectory = $Line2D
+@onready var sprite = $Sprite
 
 const CURSOR_BASE = preload("res://0_PNG/cursors/cursor_base.png")
 const CURSOR_AIM = preload("res://0_PNG/cursors/cursor_aim.png")
@@ -17,6 +18,8 @@ var current_loot: Node
 var shooting = false
 var aim_dev = Vector2.ZERO
 var bullet_hit_location = Vector2.ZERO
+var is_aiming = false
+var shot_frame: int
 
 
 func _ready():
@@ -28,12 +31,15 @@ func _ready():
 
 func _draw():
 	if shooting == true:
+		shot_frame += 1
 		bullet_trajectory.clear_points()
 		bullet_trajectory.add_point(position)
 		bullet_trajectory.add_point(bullet_hit_location)
-		shooting = false
+		if shot_frame > 2:
+			shooting = false
 	else:
 		bullet_trajectory.clear_points()
+		shot_frame = 0
 
 func _physics_process(_delta):
 	handleAiming()
@@ -41,6 +47,7 @@ func _physics_process(_delta):
 	handleLooting()
 	move_and_slide()
 	look_at(get_global_mouse_position())
+	HandleAnimation()
 	queue_redraw()
 
 func handleMovement():
@@ -55,11 +62,13 @@ func handleMovement():
 func handleAiming():
 	if Input.is_action_pressed("aim"):
 		Input.set_custom_mouse_cursor(CURSOR_AIM,Input.CURSOR_ARROW,Vector2(16,16))
+		is_aiming = true
 		flash_light.visible = true
 		current_speed = aiming_speed
 		if Input.is_action_just_pressed("attack"):
 			handleAttacking()
 	else: 
+		is_aiming = false
 		Input.set_custom_mouse_cursor(CURSOR_BASE,Input.CURSOR_ARROW,Vector2(16,16))
 		flash_light.visible = false
 		current_speed = walking_speed
@@ -71,6 +80,7 @@ func handleAttacking():
 		aim_dev.x = randi_range(-6,6)
 		aim_dev.y = randi_range(-6,6)
 		shooting = true
+		shot_frame = 0
 		var space_state = get_world_2d().direct_space_state
 		var query = PhysicsRayQueryParameters2D.create(position, target+aim_dev)
 		var result = space_state.intersect_ray(query)
@@ -106,3 +116,19 @@ func handleLooting():
 				current_loot.get_child(2).start()
 		if Input.is_action_just_released("action"):
 			current_loot.get_child(2).stop()
+
+func HandleAnimation():
+	if velocity != Vector2.ZERO:
+		if shooting:
+			sprite.play("shoot")
+		elif is_aiming:
+			sprite.play("aim_walk")
+		else:
+			sprite.play("walk")
+	elif velocity <= Vector2(0.2,0.2):
+		if shooting:
+			sprite.play("shoot")
+		elif is_aiming:
+			sprite.play("aim")
+		else:
+			sprite.play("idle")

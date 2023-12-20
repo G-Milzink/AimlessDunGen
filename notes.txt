@@ -39,3 +39,6 @@ done:
 	- loot system:
 			loot_counter
 			rng_loot rooms
+	comabt mechanics:
+		shooting
+		enemy health
