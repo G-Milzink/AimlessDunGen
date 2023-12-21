@@ -42,7 +42,6 @@ func _draw():
 		shot_frame = 0
 
 func _physics_process(_delta):
-	print(direction)
 	handleAiming()
 	handleMovement()
 	handleLooting()
@@ -96,7 +95,6 @@ func handleAttacking():
 			if result.collider.is_in_group("enemy"):
 				var damage_output = calculateDamage(_Globals.current_damage)
 				result.collider.get_child(0).takeDamage(damage_output)
-				print(damage_output)
 		else:
 			bullet_hit_location = target+aim_dev
 	else:
