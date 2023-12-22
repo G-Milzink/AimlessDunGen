@@ -12,6 +12,7 @@ const CURSOR_AIM = preload("res://0_PNG/cursors/cursor_aim.png")
 
 var current_speed: int 
 var direction: Vector2
+var look_direction: Vector2
 var can_loot := false
 var can_walk := true
 var current_loot: Node
@@ -51,16 +52,11 @@ func _physics_process(_delta):
 	queue_redraw()
 
 func handleMovement():
-	direction = -(position - get_global_mouse_position()).normalized()
+	direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	look_direction = -(position - get_global_mouse_position()).normalized()
 	if can_walk:
-		if Input.is_action_pressed("move_up"):
+		if direction:
 			velocity = direction * current_speed
-		elif Input.is_action_pressed("move_down"):
-			velocity = -direction * current_speed
-		elif Input.is_action_pressed("move_right"):
-			velocity = direction.rotated(deg_to_rad(90)) * current_speed
-		elif Input.is_action_pressed("move_left"):
-			velocity = direction.rotated(deg_to_rad(-90)) * current_speed
 		else:
 			velocity.x = move_toward(velocity.x, 0, current_speed)
 			velocity.y = move_toward(velocity.y, 0, current_speed)
@@ -123,23 +119,26 @@ func handleLooting():
 			current_loot.get_child(2).stop()
 
 func HandleAnimation():
-	if Input.is_action_pressed("move_up"):
-		if shooting:
-			sprite.play("shoot")
-		elif is_aiming:
-			sprite.play("aim_walk")
-		else:
-			sprite.play("walk")
-	elif Input.is_action_pressed("move_down"):
-		if shooting:
-			sprite.play("shoot")
-		if is_aiming:
-			sprite.play("aim_walk_back")
-		else:
-			sprite.play("walk_back")
-		if shooting:
-			sprite.play("shoot")
-	elif is_aiming:
-		sprite.play("aim")
+	var angle = rad_to_deg(direction.angle_to(look_direction))+180
+	if direction:
+		
+		if angle >= 135 && angle < 225:
+			if is_aiming:
+				sprite.play("aim_walk")
+			else:
+				sprite.play("walk")
+		
+		if angle < 45 || angle > 305:
+			if is_aiming:
+				sprite.play("aim_walk_back")
+			else:
+				sprite.play("walk_back")
+		
+		if angle >= 45 && angle < 135:
+			print("right")
+		
+		if angle >= 225 && angle < 305:
+			print("left")
+		
 	else:
 		sprite.play("idle")

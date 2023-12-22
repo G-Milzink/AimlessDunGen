@@ -5,3 +5,4 @@ res://autoload/globals.tscn
 res://audio/audio.tscn
 res://main.tscn
 res://map/map.tscn
+res://player/player.gd
