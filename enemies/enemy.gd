@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@export var search_for_player = false
 @export var walking_speed = 35
 @export var hunting_duration = 30 #in seconds
 
@@ -14,7 +15,7 @@ var direction: Vector2
 var current_speed: int
 
 var player_in_visual_range = false
-var hunting_player = false
+var following_player = false
 var player_exists = false
 var player: Node
 
@@ -30,16 +31,6 @@ func _physics_process(delta):
 	move_and_slide()
 	handleAnimation()
 
-func spotPlayer():
-	if !hunting_player:
-		if line_of_sight_ray.get_collider() == player:
-			if !line_of_sight_timer.is_stopped():
-				line_of_sight_timer.stop()
-			hunting_player = true
-	else:
-		if line_of_sight_timer.is_stopped():
-			line_of_sight_timer.start(hunting_duration)
-
 func checkForPlayer():
 	if player == null:
 		if get_tree().get_first_node_in_group("player"):
@@ -48,11 +39,24 @@ func checkForPlayer():
 		else:
 			player_exists = false
 
+func spotPlayer():
+	if !following_player:
+		if line_of_sight_ray.get_collider() == player:
+			if !line_of_sight_timer.is_stopped():
+				line_of_sight_timer.stop()
+			following_player = true
+	else:
+		if line_of_sight_timer.is_stopped():
+			line_of_sight_timer.start(hunting_duration)
+
 func _on_line_of_sight_timer_timeout():
-	hunting_player = false
+	following_player = false
+
+func searchForPlayer():
+	pass
 
 func huntPlayer(delta):
-	if hunting_player:
+	if following_player:
 		nav_agent.target_position = get_tree().get_first_node_in_group("player").position
 		direction = nav_agent.get_next_path_position() - global_position
 		direction = direction.normalized()
@@ -61,7 +65,7 @@ func huntPlayer(delta):
 		velocity = velocity.lerp(Vector2(0,0), ACCEL*delta)
 
 func handleAnimation():
-	if hunting_player:
+	if following_player:
 		sprite_2d.set_frame(1)
 	else:
 		sprite_2d.set_frame(0)

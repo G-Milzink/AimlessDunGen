@@ -5,4 +5,5 @@ res://audio/audio.tscn
 res://main.tscn
 res://map/map.tscn
 res://player/player.tscn
-res://player/player.gd
+res://enemies/enemy_01.tscn
+res://enemies/enemy.gd

@@ -1,7 +1,7 @@
 [gd_scene load_steps=532 format=3 uid="uid://djkwji28foksj"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_jy1eu"]
-[ext_resource type="Texture2D" path="res://0_PNG/player/player_pistol_shoot.png" id="2_5wc8u"]
+[ext_resource type="Texture2D" uid="uid://coo2opwtnxg02" path="res://0_PNG/player/player_pistol_shoot.png" id="2_5wc8u"]
 [ext_resource type="Texture2D" uid="uid://1g7egt70v57f" path="res://0_PNG/player/player_aim_idle.png" id="2_cbajt"]
 [ext_resource type="Texture2D" uid="uid://covo3lmqf8w5c" path="res://0_PNG/player/aim_strafe_left.png" id="3_1cg68"]
 [ext_resource type="Texture2D" uid="uid://c4hj7u0xcvtf0" path="res://0_PNG/player/player_aim_walk.png" id="3_03qhs"]
