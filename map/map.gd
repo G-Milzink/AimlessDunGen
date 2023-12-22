@@ -15,6 +15,7 @@ const TILE_SIZE = 32
 # essential rooms:
 const ROOM_START = preload("res://rooms/room_start.tscn")
 const ROOM_BOSS = preload("res://rooms/room_boss.tscn")
+const ROOM_FINISH = preload("res://rooms/room_finish.tscn")
 #rng rooms:
 const ROOM_A = preload("res://rooms/room_a.tscn")
 const ROOM_B = preload("res://rooms/room_b.tscn")
@@ -37,6 +38,7 @@ var room_start_position: Vector2
 var player_spawn_position: Vector2
 var room_boss_position: Vector2
 var boss_spawn_position: Vector2
+var room_finish_position: Vector2
 
 var room_a_positions: Array
 var room_b_positions: Array
@@ -113,6 +115,9 @@ func makeRooms():
 	room = ROOM_BOSS.instantiate()
 	room.position = essential_room_pos.pop_front()
 	$Rooms.add_child(room)
+	room = ROOM_FINISH.instantiate()
+	room.position = essential_room_pos.pop_front()
+	$Rooms.add_child(room)
 	#Generate rng rooms:
 	for i in nr_of_rooms:
 		rng = randi() % 100
@@ -155,6 +160,8 @@ func makeRooms():
 			room_start_position = tile_map_coords
 		if _room.is_in_group("boss"):
 			room_boss_position = tile_map_coords
+		if _room.is_in_group("finish"):
+			room_finish_position = tile_map_coords
 		if _room.is_in_group("room_a"):
 			room_a_positions.append(tile_map_coords)
 		if _room.is_in_group("room_b"):
@@ -191,13 +198,20 @@ func placePatterns():
 	elif rng < 75 : pattern = $RoomPatterns.room_start_south
 	else: pattern = $RoomPatterns.room_start_west
 	tile_map.set_pattern(0,room_start_position,pattern)
-	#Place START room:
+	#Place BOSS room:
 	rng = randi() % 100
 	if rng < 25 : pattern = $RoomPatterns.room_boss_north
 	elif rng < 50 : pattern = $RoomPatterns.room_boss_east
 	elif rng < 75 : pattern = $RoomPatterns.room_boss_south
 	else: pattern = $RoomPatterns.room_boss_west
 	tile_map.set_pattern(0,room_boss_position,pattern)
+	#Place FINISH room:
+	rng = randi() % 100
+	if rng < 25 : pattern = $RoomPatterns.room_finish_north
+	elif rng < 50 : pattern = $RoomPatterns.room_finish_east
+	elif rng < 75 : pattern = $RoomPatterns.room_finish_south
+	else: pattern = $RoomPatterns.room_finish_west
+	tile_map.set_pattern(0,room_finish_position,pattern)
 
 func analyseLayout():
 	var tile_data: TileData

@@ -1,11 +1,11 @@
 res://default_bus_layout.tres
-res://autoload/globals.tscn
+res://map/map.tscn
 res://tilesets/ADG_Main_TileSet.tres
+res://autoload/globals.tscn
 res://audio/audio.tscn
 res://main.tscn
-res://map/map.tscn
 res://player/player.tscn
 res://enemies/enemy_01.tscn
-res://enemies/enemy.gd
+res://rooms/RoomPatterns.gd
+res://rooms/room_finish.tscn
 res://map/map.gd
-res://map/Camera.gd

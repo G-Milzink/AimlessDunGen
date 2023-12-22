@@ -94,8 +94,10 @@ attack={
 [layer_names]
 
 2d_physics/layer_1="World"
+2d_physics/layer_2="player"
 2d_physics/layer_5="enemy_visual_range"
 2d_physics/layer_9="RoomGeneration"
+2d_physics/layer_13="map_transition"
 
 [physics]
 

@@ -2,6 +2,7 @@ extends Node2D
 
 @export var room_START_size = Vector2(11,11)
 @export var room_BOSS_size = Vector2(19,19)
+@export var room_FINISH_size = Vector2(19,19)
 @export var room_A_size = Vector2(7,7)
 @export var room_B_size = Vector2(9,9)
 @export var pattern_spacing := Vector2(2,2)
@@ -17,6 +18,11 @@ var room_boss_north: TileMapPattern
 var room_boss_east: TileMapPattern
 var room_boss_south: TileMapPattern
 var room_boss_west: TileMapPattern
+#Room_Finish
+var room_finish_north: TileMapPattern
+var room_finish_east: TileMapPattern
+var room_finish_south: TileMapPattern
+var room_finish_west: TileMapPattern
 #Room_A
 var room_a_north: TileMapPattern
 var room_a_east: TileMapPattern
@@ -38,6 +44,8 @@ func _ready():
 	room_Start_Patterns()
 	room_BOSS_size = room_BOSS_size + pattern_spacing
 	room_Boss_Patterns()
+	room_FINISH_size = room_FINISH_size + pattern_spacing
+	room_Finish_Patterns()
 
 #-------------------------------------------------------------------------------
 #Essential Rooms:
@@ -92,6 +100,32 @@ func room_Boss_Patterns():
 		for y in room_BOSS_size.y:
 			room_boss_tiles.append(Vector2i(x,y))
 	room_boss_west = $Room_Boss.get_pattern(0,room_boss_tiles)
+
+func room_Finish_Patterns():
+	var room_finish_tiles: Array
+	# Room_Bosst north:
+	for x in room_FINISH_size.x:
+		for y in room_FINISH_size.y:
+			room_finish_tiles.append(Vector2i(x,y))
+	room_finish_north = $Room_Finish.get_pattern(0,room_finish_tiles)
+	# Room_Boss east:
+	room_finish_tiles.clear()
+	for x in range(room_FINISH_size.x,room_FINISH_size.x * 2):
+		for y in room_FINISH_size.y:
+			room_finish_tiles.append(Vector2i(x,y))
+	room_finish_east = $Room_Finish.get_pattern(0,room_finish_tiles)
+	# Room_Boss south:
+	room_finish_tiles.clear()
+	for x in range(room_FINISH_size.x*2,room_FINISH_size.x * 3):
+		for y in room_FINISH_size.y:
+			room_finish_tiles.append(Vector2i(x,y))
+	room_finish_south = $Room_Finish.get_pattern(0,room_finish_tiles)
+	# Room_Boss west:
+	room_finish_tiles.clear()
+	for x in range(room_FINISH_size.x*3,room_FINISH_size.x * 4):
+		for y in room_FINISH_size.y:
+			room_finish_tiles.append(Vector2i(x,y))
+	room_finish_west = $Room_Finish.get_pattern(0,room_finish_tiles)
 
 #-------------------------------------------------------------------------------
 #Rng Rooms:
