@@ -26,6 +26,7 @@ edge_buffer = 11
 [node name="Rooms" type="Node" parent="."]
 
 [node name="RoomPatterns" type="Node2D" parent="."]
+visible = false
 script = ExtResource("2_5u5c0")
 room_START_size = Vector2(13, 13)
 
@@ -61,7 +62,7 @@ water_noise = SubResource("FastNoiseLite_dgymk")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Lighting"]
 visible = false
-color = Color(0.109804, 0.109804, 0.109804, 1)
+color = Color(0.0295066, 0.0295066, 0.0295066, 1)
 
 [node name="Loot" type="Node" parent="."]
 
@@ -80,7 +81,6 @@ layer_3/tile_data = PackedInt32Array()
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(2009, 1760)
-zoom = Vector2(-0.41, -0.41)
 position_smoothing_enabled = true
 position_smoothing_speed = 16.0
 script = ExtResource("4_xtufv")

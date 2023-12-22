@@ -7,3 +7,5 @@ res://map/map.tscn
 res://player/player.tscn
 res://enemies/enemy_01.tscn
 res://enemies/enemy.gd
+res://map/map.gd
+res://map/Camera.gd

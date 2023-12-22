@@ -3701,7 +3701,7 @@ aiming_speed = 25
 texture_filter = 1
 rotation = -1.5708
 sprite_frames = SubResource("SpriteFrames_1a5aa")
-animation = &"aim"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -3724,7 +3724,7 @@ offset = Vector2(160, 0)
 top_level = true
 
 [node name="Interaction_range" type="Area2D" parent="."]
-position = Vector2(10, 0)
+position = Vector2(12, 0)
 rotation = -1.5708
 collision_layer = 0
 collision_mask = 2

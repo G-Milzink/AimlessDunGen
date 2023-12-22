@@ -66,6 +66,7 @@ var grid_edge_Y := 0
 
 @onready var tile_map = $TileMap
 @onready var canvas_mod = $Lighting/CanvasModulate
+@onready var hud = $"../Hud"
 
 #-------------------------------------------------------------------------------
 
@@ -83,18 +84,16 @@ func _ready():
 	generateWater()
 	generateFoliage()
 	placeLights()
+	await get_tree().create_timer(1).timeout
+	captureInGameMap()
 	placeLoot()
-	#await get_tree().create_timer(1).timeout
 	spawnEnemies()
 	spawnPlayer()
 
 #-------------------------------------------------------------------------------
 
 func setup():
-	if _Globals.disable_canvas_mod:
-		canvas_mod.visible = false
-	else:
-		canvas_mod.visible = true
+	canvas_mod.visible = false
 	tile_map.set_collision_animatable(true)
 	RenderingServer.set_default_clear_color(Color.BLACK)
 	#RenderingServer.set_default_clear_color(Color.DARK_SLATE_GRAY)
@@ -280,6 +279,20 @@ func updateFloorAndWallLocations():
 		if tile_data.get_custom_data("is_floor"):
 			floor_tiles.append(cell)
 
+func captureInGameMap():
+	var rect = tile_map.get_used_rect()
+	print(rect.size * 32)
+	var vpt = get_viewport()
+	vpt.position.x = -rect.size.x * 0.5
+	vpt.position.x = -rect.size.y * 0.5
+	var tex = vpt.get_texture()
+	var img = tex.get_image()
+	img.save_png("res://runtime_storage/map.png")
+	if _Globals.disable_canvas_mod:
+		canvas_mod.visible = false
+	else:
+		canvas_mod.visible = true
+
 func generateWater():
 	var noise_value : float
 	var tile_data : TileData
@@ -346,6 +359,7 @@ func spawnPlayer():
 		var player = PLAYER.instantiate()
 		player.position = player_spawn_position
 		add_child(player)
+		hud.visible = true
 
 func fixMap_AddCollisions():
 	var uc = tile_map.get_used_cells(0)
