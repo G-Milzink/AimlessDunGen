@@ -135,10 +135,19 @@ func HandleAnimation():
 				sprite.play("walk_back")
 		
 		if angle >= 45 && angle < 135:
-			print("right")
+			if is_aiming:
+				sprite.play("aim_strafe_right")
+			else:
+				sprite.play("walk_strafe_right")
 		
 		if angle >= 225 && angle < 305:
-			print("left")
+			if is_aiming:
+				sprite.play("aim_strafe_left")
+			else:
+				sprite.play("walk_strafe_left")
 		
 	else:
-		sprite.play("idle")
+		if is_aiming:
+			sprite.play("aim_idle")
+		else:
+			sprite.play("idle")
