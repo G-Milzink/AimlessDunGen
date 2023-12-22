@@ -1,7 +1,6 @@
 extends Node2D
 
 #region Exported variables
-@export var spawn_player := false
 @export var generate_water := true
 @export var generate_foliage := true
 @export var nr_of_rooms := 50
@@ -66,6 +65,7 @@ var grid_edge_Y := 0
 #endregion
 
 @onready var tile_map = $TileMap
+@onready var canvas_mod = $Lighting/CanvasModulate
 
 #-------------------------------------------------------------------------------
 
@@ -91,6 +91,10 @@ func _ready():
 #-------------------------------------------------------------------------------
 
 func setup():
+	if _Globals.disable_canvas_mod:
+		canvas_mod.visible = false
+	else:
+		canvas_mod.visible = true
 	tile_map.set_collision_animatable(true)
 	RenderingServer.set_default_clear_color(Color.BLACK)
 	#RenderingServer.set_default_clear_color(Color.DARK_SLATE_GRAY)
@@ -330,14 +334,15 @@ func placeLoot():
 			$Loot.add_child(loot_instance)
 
 func spawnEnemies():
-	var enemy_instance: Node
-	for pos in enemy_spawn_positions:
-		enemy_instance = ENEMY_01.instantiate()
-		enemy_instance.position = tile_map.map_to_local(pos)
-		$Enemies.add_child(enemy_instance)
+	if _Globals.spawn_enemies:
+		var enemy_instance: Node
+		for pos in enemy_spawn_positions:
+			enemy_instance = ENEMY_01.instantiate()
+			enemy_instance.position = tile_map.map_to_local(pos)
+			$Enemies.add_child(enemy_instance)
 
 func spawnPlayer():
-	if spawn_player:
+	if _Globals.spawn_player:
 		var player = PLAYER.instantiate()
 		player.position = player_spawn_position
 		add_child(player)

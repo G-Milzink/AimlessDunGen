@@ -1,5 +1,9 @@
 extends Node
 
+@export_category("debug settings:")
+@export var spawn_player = true
+@export var spawn_enemies = true
+@export var disable_canvas_mod = false
 @export_category("player parameters:")
 @export var starting_damage = 30
 @export var damage_rng = 5
