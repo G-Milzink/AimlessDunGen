@@ -9,6 +9,7 @@ radius = 9.05539
 
 [node name="Enemy_01" type="CharacterBody2D" groups=["enemy"]]
 script = ExtResource("1_77hdd")
+hunt_for_player = true
 walking_speed = 40
 
 [node name="Health" parent="." groups=["health_node"] instance=ExtResource("2_371nr")]
@@ -29,7 +30,17 @@ target_position = Vector2(192, 0)
 
 [node name="LineOfSightTimer" type="Timer" parent="."]
 process_callback = 0
-wait_time = 30.0
+wait_time = 20.0
+one_shot = true
+
+[node name="HuntingTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="HuntingDelayTimer" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
 [connection signal="timeout" from="LineOfSightTimer" to="." method="_on_line_of_sight_timer_timeout"]
+[connection signal="timeout" from="HuntingTimer" to="." method="_on_hunting_timer_timeout"]
+[connection signal="timeout" from="HuntingDelayTimer" to="." method="_on_hunting_delay_timer_timeout"]

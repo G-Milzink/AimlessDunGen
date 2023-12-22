@@ -4,6 +4,5 @@
 
 [node name="Globals" type="Node"]
 script = ExtResource("1_0tner")
-disable_canvas_mod = true
 clip_size = 60
 starting_ammo = 6

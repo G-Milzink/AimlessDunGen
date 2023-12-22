@@ -1,13 +1,16 @@
 extends CharacterBody2D
 
-@export var search_for_player = false
+@export var hunt_for_player = false
 @export var walking_speed = 35
 @export var hunting_duration = 30 #in seconds
 
+@onready var sprite = $Sprite2D
 @onready var nav_agent = $NavigationAgent2D
 @onready var line_of_sight_ray = $LineOfSight
 @onready var line_of_sight_timer = $LineOfSightTimer
-@onready var sprite_2d = $Sprite2D
+@onready var hunting_timer = $HuntingTimer
+@onready var hunting_delay_timer = $HuntingDelayTimer
+
 
 const ACCEL = 5
 
@@ -16,18 +19,27 @@ var current_speed: int
 
 var player_in_visual_range = false
 var following_player = false
+var hunting_player = false
 var player_exists = false
 var player: Node
 
 func _ready():
 	current_speed = walking_speed
+	if randi() % 100 >= 50:
+		hunt_for_player = true
+	else:
+		hunt_for_player = false
 
 func _physics_process(delta):
 	checkForPlayer()
 	if player_exists:
 		spotPlayer()
-		huntPlayer(delta)
-		look_at(player.position)
+		followPlayer(delta)
+		huntForPlayer(delta)
+		if hunting_player:
+			look_at(nav_agent.get_next_path_position())
+		else:
+			look_at(player.position)
 	move_and_slide()
 	handleAnimation()
 
@@ -52,10 +64,28 @@ func spotPlayer():
 func _on_line_of_sight_timer_timeout():
 	following_player = false
 
-func searchForPlayer():
-	pass
+func huntForPlayer(delta):
+	if !following_player && hunt_for_player:
+		if hunting_timer.is_stopped() && hunting_delay_timer.is_stopped():
+			hunting_timer.start(randi_range(1,5))
+			hunting_player = true
+			if randi() % 100 >= 75:
+				nav_agent.target_position = get_tree().get_first_node_in_group("player").position
+			else:
+				nav_agent.target_position = get_tree().get_first_node_in_group("map").floor_tiles.pick_random()*32
+		elif !hunting_timer.is_stopped() && hunting_delay_timer.is_stopped():
+			direction = nav_agent.get_next_path_position() - global_position
+			direction = direction.normalized()
+			velocity = velocity.lerp(direction * current_speed, ACCEL * delta)
+		else:
+			velocity = velocity.lerp(Vector2(0,0), ACCEL*delta)
 
-func huntPlayer(delta):
+func _on_hunting_timer_timeout():
+	if hunting_delay_timer.is_stopped():
+		hunting_delay_timer.start(randi_range(1,5))
+		hunting_player = false
+
+func followPlayer(delta):
 	if following_player:
 		nav_agent.target_position = get_tree().get_first_node_in_group("player").position
 		direction = nav_agent.get_next_path_position() - global_position
@@ -66,6 +96,8 @@ func huntPlayer(delta):
 
 func handleAnimation():
 	if following_player:
-		sprite_2d.set_frame(1)
+		sprite.set_frame(1)
 	else:
-		sprite_2d.set_frame(0)
+		sprite.set_frame(0)
+
+
