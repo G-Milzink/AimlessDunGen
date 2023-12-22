@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1703213892
+::res://::1703214670
 default_bus_layout.tres::AudioBusLayout::4754013937092158514::1703213778::0::1::::<><>::
 icon.svg::CompressedTexture2D::644599932507494073::1702585366::1702585370::1::::<><>::
 main.gd::GDScript::-1::1703003601::0::1::::<>Node2D<>::
@@ -40,11 +40,6 @@ water_01.wav::AudioStreamWAV::3611173157460949996::1703024089::1703024094::1::::
 ::res://autoload/::1703213849
 globals.gd::GDScript::-1::1703213128::0::1::::<>Node<>::
 globals.tscn::PackedScene::1272794790454638322::1703213849::0::1::::<><>::res://autoload/globals.gd
-::res://dev_files/::1703213892
-::res://dev_files/0_TEXT_PACKING/::1703213521
-::res://dev_files/BLENDS/::1703213661
-::res://dev_files/FBX/::1703213170
-::res://dev_files/FBX/soldier/::1703213647
 ::res://enemies/::1703213850
 enemy.gd::GDScript::-1::1703025255::0::1::::<>CharacterBody2D<>::
 enemy_01.tscn::PackedScene::2599413310734444587::1703213850::0::1::::<><>::res://enemies/enemy.gd<>uid://bjii2tld6govm::::res://0_PNG/enemies/Enemy_01/enemy_01.png<>uid://5pfhpxqyhrw0::::res://nodes/health.tscn
