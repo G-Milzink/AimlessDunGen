@@ -10,6 +10,4 @@ export_presets.cfg
 .mono/
 data_*/
 
-.0_BLENDS/
-.0_FBX/
-.0_TEXT_PACKING/
+/dev_files
