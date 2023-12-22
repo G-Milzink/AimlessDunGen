@@ -1,9 +1,7 @@
 res://default_bus_layout.tres
-res://audio/audio.tscn
+res://player/player.tscn
 res://tilesets/ADG_Main_TileSet.tres
 res://autoload/globals.tscn
-res://autoload/globals.gd
-res://map/map.tscn
-res://map/map.gd
+res://audio/audio.tscn
 res://main.tscn
-res://player/player.tscn
+res://map/map.tscn
