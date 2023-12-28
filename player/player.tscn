@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://covo3lmqf8w5c" path="res://0_PNG/player/aim_strafe_left.png" id="3_1cg68"]
 [ext_resource type="Texture2D" uid="uid://c4hj7u0xcvtf0" path="res://0_PNG/player/player_aim_walk.png" id="3_03qhs"]
 [ext_resource type="Script" path="res://player/player_light.gd" id="3_81gqj"]
-[ext_resource type="Texture2D" uid="uid://i58oaxbfb43i" path="res://0_PNG/player/player_walk.png" id="3_bnq50"]
+[ext_resource type="Texture2D" uid="uid://bah0inu4cl0lc" path="res://0_PNG/player/player_walk.png" id="3_bnq50"]
 [ext_resource type="Texture2D" uid="uid://bngv72he88pbj" path="res://0_PNG/player/aim_idle.png" id="3_s482t"]
 [ext_resource type="Texture2D" uid="uid://bl5rgx6t167et" path="res://0_PNG/player/player_idle.png" id="4_12jnn"]
 [ext_resource type="Texture2D" uid="uid://mpjbd6605q1v" path="res://0_PNG/player/aim_strafe_right.png" id="4_wsm4k"]
@@ -3710,6 +3710,7 @@ debug_color = Color(0.992157, 0, 0.247059, 0.419608)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(0.741176, 0.741176, 0.509804, 1)
+energy = 0.5
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_mneur")
 script = ExtResource("3_81gqj")

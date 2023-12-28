@@ -1,17 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://d0tgm3566l26i"]
 
 [ext_resource type="Script" path="res://lighting/light_rng.gd" id="1_8aevy"]
-
-[sub_resource type="Gradient" id="Gradient_bfi4u"]
-colors = PackedColorArray(0.32549, 0.588235, 0.588235, 1, 0.0718579, 0.147523, 0.237995, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_j6o67"]
-gradient = SubResource("Gradient_bfi4u")
-width = 16
-height = 16
-fill = 2
-fill_from = Vector2(0.5, 0.5)
-metadata/_snap_enabled = true
+[ext_resource type="Texture2D" uid="uid://116xnlxxqp04" path="res://0_PNG/props/lights/light_bowl.png" id="2_q1say"]
 
 [sub_resource type="Gradient" id="Gradient_ffgaq"]
 interpolation_mode = 2
@@ -26,21 +16,40 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.8, 0.2)
 metadata/_snap_enabled = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hbyae"]
-size = Vector2(16, 16)
+[sub_resource type="CircleShape2D" id="CircleShape2D_w2774"]
+radius = 12.0
+
+[sub_resource type="Gradient" id="Gradient_1spmm"]
+offsets = PackedFloat32Array(0, 0.703608)
+colors = PackedColorArray(1, 0.929333, 0.47, 1, 0.270588, 0.109804, 0, 0.721569)
 
 [node name="light" type="Node2D"]
 script = ExtResource("1_8aevy")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("GradientTexture2D_j6o67")
-
 [node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(0.278431, 0.882353, 0.709804, 1)
+color = Color(0.764706, 0.356863, 0, 1)
+energy = 2.0
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_fx5sl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_q1say")
+hframes = 2
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_hbyae")
+visible = false
+shape = SubResource("CircleShape2D_w2774")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="StaticBody2D"]
+amount = 377
+emission_shape = 1
+emission_sphere_radius = 5.7
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 4.59
+color_ramp = SubResource("Gradient_1spmm")
+hue_variation_min = -0.43
+hue_variation_max = 0.35
