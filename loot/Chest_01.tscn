@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://2ae1kmrn7qlq"]
+[gd_scene load_steps=7 format=3 uid="uid://2ae1kmrn7qlq"]
 
 [ext_resource type="Script" path="res://loot/chest_01.gd" id="1_5huha"]
 [ext_resource type="Texture2D" uid="uid://4jbw3bcp0825" path="res://0_PNG/loot/chest_01.png" id="2_vxmb7"]
@@ -6,6 +6,20 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_girmj"]
 size = Vector2(24, 14)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_23jot"]
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.215686, 0.215686, 0.215686, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w63m6"]
+bg_color = Color(0.54902, 0.54902, 0.54902, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.215686, 0.215686, 0.215686, 1)
+border_blend = true
 
 [node name="Chest_01" type="StaticBody2D" groups=["loot"]]
 collision_layer = 3
@@ -21,16 +35,15 @@ shape = SubResource("RectangleShape2D_girmj")
 texture = ExtResource("2_vxmb7")
 hframes = 2
 
-[node name="timer_display" type="RichTextLabel" parent="Sprite2D"]
-offset_left = -11.0
-offset_top = -14.0
+[node name="ProgressBar" type="ProgressBar" parent="Sprite2D"]
+offset_left = -12.0
+offset_top = -8.0
 offset_right = 12.0
-offset_bottom = 9.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/normal_font_size = 16
-text = "2.0"
-autowrap_mode = 0
+offset_bottom = -4.0
+theme_override_styles/background = SubResource("StyleBoxFlat_23jot")
+theme_override_styles/fill = SubResource("StyleBoxFlat_w63m6")
+max_value = 1.0
+step = 100.0
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0

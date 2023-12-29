@@ -1,7 +1,8 @@
 extends StaticBody2D
 
 @onready var timer = $Timer
-@onready var timer_display = $Sprite2D/timer_display
+@onready var progress_bar = $Sprite2D/ProgressBar
+
 @onready var sprite = $Sprite2D
 @onready var shine = $PointLight2D
 
@@ -30,16 +31,16 @@ func handleBeingLooted():
 	if !has_been_looted:
 		shine.visible = true
 		if !timer.is_stopped():
-			timer_display.visible = true
-			timer_display.clear()
-			timer_display.add_text(str(timer.time_left))
+			progress_bar.visible = true
+			progress_bar.value = 1. - 2./timer.time_left
+			print(progress_bar.value)
 		else:
-			timer_display.visible = false
+			progress_bar.visible = false
 	else:
 		shine.visible = false
 
 func _on_timer_timeout():
-	timer_display.visible = false
+	progress_bar.visible = false
 	has_been_looted = true
 	sprite.set_frame(1)
 	loot_amount = randi_range(loot_min,loot_max) * _Globals.loot_multiplier
