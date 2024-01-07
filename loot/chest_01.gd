@@ -32,8 +32,7 @@ func handleBeingLooted():
 		shine.visible = true
 		if !timer.is_stopped():
 			progress_bar.visible = true
-			progress_bar.value = 1. - 2./timer.time_left
-			print(progress_bar.value)
+			progress_bar.value = 1.-(timer.time_left/2.)
 		else:
 			progress_bar.visible = false
 	else:
